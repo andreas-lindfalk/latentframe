@@ -1,0 +1,23 @@
+# Secrets — never ship into an image
+.env
+.env.*
+
+# VCS + local build/output
+.git
+.gitignore
+out/
+**/out/
+
+# Raw + generated media (large; not part of the build)
+*.mp4
+*.mov
+*.m4v
+*.MOV
+*.MP4
+
+# Node / web
+node_modules/
+web/node_modules/
+.next/
+
+.DS_Store

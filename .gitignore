@@ -27,6 +27,19 @@ go.work.sum
 # env file
 .env
 
+# pipeline output + raw footage (keep local, don't commit large media)
+out/
+**/out/
+*.mov
+*.mp4
+*.m4v
+*.MOV
+*.MP4
+
+# Node / web
+node_modules/
+.next/
+
 # Editor/IDE
 # .idea/
 # .vscode/
