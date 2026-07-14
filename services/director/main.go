@@ -109,13 +109,22 @@ func verifyCmd(args []string) {
 	before := fs.String("before", "", "path to the BEFORE image (real current photo) (required)")
 	after := fs.String("after", "", "path to the AFTER image (proposed re-staged render) (required)")
 	room := fs.String("room", "", "optional room label, e.g. 'kitchen'")
+	mode := fs.String("mode", "strict", "honesty bar: 'strict' (shell-vs-contents) or 'inspire' (potential — relax decorative architecture, keep buyable facts: size/light/view/structure)")
 	_ = fs.Parse(args)
 	if *before == "" || *after == "" {
 		fs.Usage()
 		log.Fatal("\n--before and --after are required")
 	}
 
-	verdict, err := verify.NewGate().VerifyPair(context.Background(), *before, *after, *room)
+	gate := verify.NewGate()
+	switch *mode {
+	case "strict":
+	case "inspire":
+		gate = verify.NewInspireGate()
+	default:
+		log.Fatalf("unknown --mode %q (use 'strict' or 'inspire')", *mode)
+	}
+	verdict, err := gate.VerifyPair(context.Background(), *before, *after, *room)
 	if err != nil {
 		log.Fatal(err)
 	}

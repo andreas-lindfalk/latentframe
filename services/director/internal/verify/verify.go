@@ -75,15 +75,69 @@ impossible perspective, or otherwise would not pass as a real interior photograp
 
 Look carefully, then call record_verdict exactly once.`
 
-// Gate is a Claude-backed pipeline.Verifier.
+// inspireSystemPrompt is the relaxed "potential / inspire" bar (Andreas 2026-07-14): outputs
+// are framed as an aspirational vision of what a dated room COULD become, not documentation.
+// We give full creative freedom on style AND decorative architecture, and only stop a render
+// that would mislead a visiting lead about the "buyable facts" — size, light, view, structure.
+const inspireSystemPrompt = `You are the honesty gate for Latent Frame, in INSPIRE mode. Latent Frame shows
+a property's *potential* — an aspirational vision of what a dated room could become. The goal is to INSPIRE
+a buyer, not to document the current state, so generous creative re-imagining is EXPECTED and desirable.
+Be deliberately LENIENT about style and decoration.
+
+You are shown two images of the SAME room:
+  BEFORE — the real, current photo.
+  AFTER  — an aspirational AI "potential" version.
+
+Protect ONE thing: the AFTER must still be a believable potential of THIS ACTUAL SPACE, so a lead who
+visits recognises the place and isn't misled about the facts they'd buy on. Judge ONLY these "buyable
+facts" — set architecture_preserved = false ONLY if the AFTER misrepresents one of them:
+  • ROOM SIZE / FOOTPRINT — the space is made materially bigger or smaller, or rooms are merged, so the
+    sense of scale is wrong;
+  • NATURAL LIGHT — a clearly dim room is shown flooded with daylight it doesn't have, or windows are
+    removed so a bright room looks dark. (Restyling or modestly reshaping a window is fine, as long as the
+    room's overall daylight level stays honest.);
+  • INVENTED VIEW — an outdoor view is fabricated that cannot exist (e.g. a sea/mountain/pool view where
+    the real window looks onto a wall or street);
+  • STRUCTURAL WALLS / LAYOUT — a solid, likely load-bearing wall is knocked through, or a whole functional
+    area is removed, misrepresenting the real layout.
+
+Everything else is ALLOWED and must NOT lower architecture_preserved — this is the product working:
+  • all furniture, finishes, paint, flooring, tiles, worktops, fixtures, decor, plants, lighting;
+  • DECORATIVE architecture — adding or removing beams, arches, niches, plaster texture, wainscoting,
+    columns, mouldings or a feature fireplace; restyling window frames and reasonably reshaping openings;
+  • warm styling, staging and a lifted, inviting mood.
+
+CAMERA: the AFTER is re-rendered and may be shot from a slightly different angle — never treat a viewpoint
+difference as a change. When UNSURE, LEAN TOWARD PASSING — in inspire mode we only stop a render that would
+genuinely mislead a visiting lead about size, light, view or structure. Set believable = false only for
+obvious AI artifacts or warped geometry. Call record_verdict exactly once.`
+
+// architecture_preserved descriptions, per mode.
+const (
+	strictArchDesc = "True if the building SHELL is unchanged — same walls, windows, exterior openings, room shape/proportions/ceiling, no functional area removed, and no fixtures relocated to a different wall. Replacing fixtures/finishes/furniture IN PLACE (e.g. tub→walk-in shower in the same wet zone, new kitchen along the same wall) does NOT make this false. A slightly different camera angle does NOT make this false."
+	inspireArchDesc = "True if the room's BUYABLE FACTS are preserved — same size/footprint, an honest natural-light level, no invented outdoor view, and no removed structural walls or functional areas. DECORATIVE changes (added/removed beams, arches, niches, plaster, mouldings, restyled or modestly reshaped window frames) and ALL finishes/furniture/fixtures/decor do NOT make this false. Lean toward true unless a visiting lead would be misled about size, light, view or structure."
+)
+
+// Gate is a Claude-backed pipeline.Verifier. It runs in one of two modes: the default
+// STRICT shell-vs-contents bar, or the relaxed INSPIRE bar (see the two system prompts).
 type Gate struct {
-	client anthropic.Client
+	client       anthropic.Client
+	systemPrompt string
+	archDesc     string
 }
 
-// NewGate builds a Gate. The Anthropic client reads ANTHROPIC_API_KEY from the
-// environment.
+// NewGate builds a STRICT gate (shell-vs-contents). The Anthropic client reads
+// ANTHROPIC_API_KEY from the environment. This is the default used by the pipeline,
+// the golden harness and best-of-N.
 func NewGate() Gate {
-	return Gate{client: anthropic.NewClient()}
+	return Gate{client: anthropic.NewClient(), systemPrompt: systemPrompt, archDesc: strictArchDesc}
+}
+
+// NewInspireGate builds a gate on the relaxed "potential / inspire" bar — full creative
+// freedom on style and decorative architecture; fails only material misrepresentations of
+// size, natural light, view or structure.
+func NewInspireGate() Gate {
+	return Gate{client: anthropic.NewClient(), systemPrompt: inspireSystemPrompt, archDesc: inspireArchDesc}
 }
 
 var _ pipeline.Verifier = Gate{}
@@ -128,7 +182,7 @@ func (g Gate) VerifyPair(ctx context.Context, beforePath, afterPath, roomLabel s
 			Properties: map[string]any{
 				"architecture_preserved": map[string]any{
 					"type":        "boolean",
-					"description": "True if the building SHELL is unchanged — same walls, windows, exterior openings, room shape/proportions/ceiling, no functional area removed, and no fixtures relocated to a different wall. Replacing fixtures/finishes/furniture IN PLACE (e.g. tub→walk-in shower in the same wet zone, new kitchen along the same wall) does NOT make this false. A slightly different camera angle does NOT make this false.",
+					"description": g.archDesc,
 				},
 				"believable": map[string]any{
 					"type":        "boolean",
@@ -151,7 +205,7 @@ func (g Gate) VerifyPair(ctx context.Context, beforePath, afterPath, roomLabel s
 	resp, err := g.client.Messages.New(ctx, anthropic.MessageNewParams{
 		Model:      model,
 		MaxTokens:  1024,
-		System:     []anthropic.TextBlockParam{{Text: systemPrompt}},
+		System:     []anthropic.TextBlockParam{{Text: g.systemPrompt}},
 		Tools:      []anthropic.ToolUnionParam{{OfTool: &tool}},
 		ToolChoice: anthropic.ToolChoiceParamOfTool("record_verdict"),
 		Messages:   []anthropic.MessageParam{userMsg},
