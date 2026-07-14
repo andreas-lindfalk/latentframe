@@ -15,6 +15,7 @@ import (
 	"strings"
 
 	"github.com/andreas-lindfalk/latentframe/pkg/env"
+	"github.com/andreas-lindfalk/latentframe/services/director/internal/judge"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/understand"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/verify"
 )
@@ -24,7 +25,7 @@ func main() {
 	env.Load(".env")
 
 	if len(os.Args) < 2 {
-		log.Fatal("usage: director <understand|verify> ...")
+		log.Fatal("usage: director <understand|verify|judge> ...")
 	}
 	if os.Getenv("ANTHROPIC_API_KEY") == "" {
 		log.Fatal("ANTHROPIC_API_KEY is not set (put it in .env or export it)")
@@ -35,9 +36,41 @@ func main() {
 		understandCmd(os.Args[2:])
 	case "verify":
 		verifyCmd(os.Args[2:])
+	case "judge":
+		judgeCmd(os.Args[2:])
 	default:
-		log.Fatalf("unknown command %q (use: understand | verify)", os.Args[1])
+		log.Fatalf("unknown command %q (use: understand | verify | judge)", os.Args[1])
 	}
+}
+
+// judgeCmd runs the regression harness's quality judge: does a new candidate hold the
+// bar set by a previously-approved reference for the same room?
+func judgeCmd(args []string) {
+	fs := flag.NewFlagSet("judge", flag.ExitOnError)
+	candidate := fs.String("candidate", "", "path to the newly generated AFTER (required)")
+	reference := fs.String("reference", "", "path to the previously-approved AFTER (required)")
+	before := fs.String("before", "", "optional path to the original BEFORE (context)")
+	room := fs.String("room", "", "optional room label, e.g. 'kitchen'")
+	_ = fs.Parse(args)
+	if *candidate == "" || *reference == "" {
+		fs.Usage()
+		log.Fatal("\n--candidate and --reference are required")
+	}
+
+	verdict, err := judge.NewJudge().JudgePair(context.Background(), *before, *candidate, *reference, *room)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("meets bar          : %v\n", verdict.MeetsBar)
+	fmt.Printf("quality vs reference: %s\n", verdict.QualityVsReference)
+	fmt.Printf("reason             : %s\n", verdict.Reason)
+	fmt.Println(strings.Repeat("─", 40))
+	if verdict.OK() {
+		fmt.Println("✓ HOLDS — non-regression")
+		return
+	}
+	fmt.Println("✗ REGRESSION — candidate is worse than the approved reference")
+	os.Exit(1)
 }
 
 // verifyCmd runs stage 4: the honesty gate on a before/after pair.

@@ -1,0 +1,16 @@
+building binaries… (9 entries)
+
+entry                honest  quality  verdict
+────────────────────────────────────────────────────────────
+rosas_living         True    same     PASS
+rosas_kitchen        True    worse    REGRESS: quality<ref
+rosas_bath           True    same     PASS
+rosas_bath2          True    same     PASS
+rosas_bedroom        True    same     PASS
+zeniamar_kitchen     True    same     PASS
+zeniamar_bath        True    same     PASS
+zeniamar_bedroom     True    same     PASS
+zeniamar_living      True    worse    REGRESS: quality<ref
+────────────────────────────────────────────────────────────
+7/9 hold the bar
+→ results written to playbook/golden/results.json

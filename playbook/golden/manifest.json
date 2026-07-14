@@ -1,0 +1,15 @@
+{
+  "note": "Golden regression set for the RESTAGE stage. Each entry: re-run the room's template on `before`, then score vs `approved` (director verify for honesty + director judge for quality). A change ships only if every entry stays honest AND holds the bar.",
+  "grade": "curves=all='0/0.02 0.25/0.30 0.72/0.75 1/1',eq=saturation=1.10:contrast=1.03,colorbalance=rs=0.02:rm=0.02:gm=0.004:bs=-0.008:bm=-0.010:bh=0.02,unsharp=5:5:0.30,vignette=PI/8",
+  "entries": [
+    {"id": "rosas_living",     "room": "living room", "template": "living",   "before": "images/rosas_living_before.jpg",     "approved": "images/rosas_living_after.jpg"},
+    {"id": "rosas_kitchen",    "room": "kitchen",     "template": "kitchen",  "before": "images/rosas_kitchen_before.jpg",    "approved": "images/rosas_kitchen_after.jpg"},
+    {"id": "rosas_bath",       "room": "bathroom",    "template": "bathroom", "before": "images/rosas_bath_before.jpg",       "approved": "images/rosas_bath_after.jpg"},
+    {"id": "rosas_bath2",      "room": "bathroom",    "template": "bathroom", "before": "images/rosas_bath2_before.jpg",      "approved": "images/rosas_bath2_after.jpg"},
+    {"id": "rosas_bedroom",    "room": "bedroom",     "template": "bedroom",  "before": "images/rosas_bedroom_before.jpg",    "approved": "images/rosas_bedroom_after.jpg"},
+    {"id": "zeniamar_kitchen", "room": "kitchen",     "template": "kitchen",  "before": "images/zeniamar_kitchen_before.jpg", "approved": "images/zeniamar_kitchen_after.jpg"},
+    {"id": "zeniamar_bath",    "room": "bathroom",    "template": "bathroom", "before": "images/zeniamar_bath_before.jpg",    "approved": "images/zeniamar_bath_after.jpg"},
+    {"id": "zeniamar_bedroom", "room": "bedroom",     "template": "bedroom",  "before": "images/zeniamar_bedroom_before.jpg", "approved": "images/zeniamar_bedroom_after.jpg"},
+    {"id": "zeniamar_living",  "room": "living room", "template": "living",   "before": "images/zeniamar_living_before.jpg",  "approved": "images/zeniamar_living_after.jpg"}
+  ]
+}
