@@ -16,6 +16,7 @@ import (
 
 	"github.com/andreas-lindfalk/latentframe/pkg/env"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/judge"
+	"github.com/andreas-lindfalk/latentframe/services/director/internal/selectbest"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/understand"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/verify"
 )
@@ -25,7 +26,7 @@ func main() {
 	env.Load(".env")
 
 	if len(os.Args) < 2 {
-		log.Fatal("usage: director <understand|verify|judge> ...")
+		log.Fatal("usage: director <understand|verify|judge|select> ...")
 	}
 	if os.Getenv("ANTHROPIC_API_KEY") == "" {
 		log.Fatal("ANTHROPIC_API_KEY is not set (put it in .env or export it)")
@@ -38,9 +39,38 @@ func main() {
 		verifyCmd(os.Args[2:])
 	case "judge":
 		judgeCmd(os.Args[2:])
+	case "select":
+		selectCmd(os.Args[2:])
 	default:
-		log.Fatalf("unknown command %q (use: understand | verify | judge)", os.Args[1])
+		log.Fatalf("unknown command %q (use: understand | verify | judge | select)", os.Args[1])
 	}
+}
+
+// selectCmd runs the best-of-N SELECTOR: given several honest candidates for the same
+// room, print the 1-based index of the best one. This is the production reliability
+// engine — generate N, keep the honest ones (verify), pick the strongest (this).
+func selectCmd(args []string) {
+	fs := flag.NewFlagSet("select", flag.ExitOnError)
+	before := fs.String("before", "", "optional path to the original BEFORE (context)")
+	room := fs.String("room", "", "optional room label, e.g. 'kitchen'")
+	fs.Usage = func() {
+		fmt.Fprintln(os.Stderr, "usage: director select [--before b.jpg] [--room kitchen] cand1.png cand2.png ...")
+		fs.PrintDefaults()
+	}
+	_ = fs.Parse(args)
+	candidates := fs.Args()
+	if len(candidates) == 0 {
+		fs.Usage()
+		log.Fatal("\nprovide one or more candidate image paths")
+	}
+
+	sel, err := selectbest.NewSelector().SelectBest(context.Background(), *before, candidates, *room)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("best index : %d\n", sel.BestIndex)
+	fmt.Printf("best path  : %s\n", candidates[sel.BestIndex-1])
+	fmt.Printf("reason     : %s\n", sel.Reason)
 }
 
 // judgeCmd runs the regression harness's quality judge: does a new candidate hold the
