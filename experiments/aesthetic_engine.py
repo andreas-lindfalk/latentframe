@@ -25,6 +25,7 @@ FAL_UPLOAD_INIT = "https://rest.alpha.fal.ai/storage/upload/initiate?storage_typ
 DEPTH_MODEL = "fal-ai/imageutils/depth"                       # Midas depth map
 DEPTH_CTRL = "fal-ai/flux-control-lora-depth/image-to-image"  # structure-locked FLUX (i2i)
 DEPTH_CTRL_T2I = "fal-ai/flux-control-lora-depth"             # depth structure, FRESH content (t2i)
+FLUX_GENERAL = "fal-ai/flux-general"                          # controlnet(depth) + IP-adapter(style ref)
 
 
 def fal_key():
@@ -54,8 +55,13 @@ def _req(url, method="GET", body=None, headers=None, raw=False):
     elif raw:
         data = body
     req = urllib.request.Request(url, data=data, method=method, headers=h)
-    with urllib.request.urlopen(req, timeout=120) as r:
-        rb = r.read()
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            rb = r.read()
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")
+        print(f"    HTTP {e.code} from {url.split('?')[0]}: {body[:600]}", file=sys.stderr)
+        raise
     return rb if raw else (json.loads(rb) if rb else {})
 
 
@@ -130,6 +136,8 @@ def main():
     ap.add_argument("--steps", type=int, default=30)
     ap.add_argument("--guidance", type=float, default=3.5)
     ap.add_argument("--t2i", action="store_true", help="fresh generation from depth+prompt (no source pixels)")
+    ap.add_argument("--ref", help="style reference image (IP-Adapter, via flux-general) — show the aesthetic")
+    ap.add_argument("--ref-scale", type=float, default=0.85, help="IP-Adapter strength")
     ap.add_argument("--keep-depth", help="optional path to also save the depth map")
     a = ap.parse_args()
     KEY = fal_key()
@@ -145,21 +153,44 @@ def main():
     if a.keep_depth:
         download(depth_url, a.keep_depth)
 
-    mode = "t2i (fresh content)" if a.t2i else "i2i"
-    print(f"3/3 depth-locked restage (FLUX Control-LoRA Depth, {mode}) …")
-    inp = {
-        "control_lora_image_url": depth_url,
-        "prompt": a.prompt,
-        "control_lora_strength": a.depth_scale,
-        "num_inference_steps": a.steps,
-        "guidance_scale": a.guidance,
-        "image_size": "landscape_4_3",
-        "output_format": "jpeg",
-    }
-    if a.t2i:
-        res = run(DEPTH_CTRL_T2I, inp)
+    if a.ref:
+        print(f"3/3 reference restage (flux-general: depth ControlNet + IP-Adapter style) …")
+        ref_url = upload(a.ref)
+        res = run(FLUX_GENERAL, {
+            "prompt": a.prompt,
+            "image_size": "landscape_4_3",
+            "num_inference_steps": a.steps,
+            "guidance_scale": a.guidance,
+            "output_format": "jpeg",
+            "controlnets": [{
+                "path": "jasperai/Flux.1-dev-Controlnet-Depth",
+                "control_image_url": depth_url,
+                "conditioning_scale": a.depth_scale,
+            }],
+            "ip_adapters": [{
+                "path": "XLabs-AI/flux-ip-adapter",
+                "weight_name": "ip_adapter.safetensors",
+                "image_encoder_path": "openai/clip-vit-large-patch14",
+                "image_url": ref_url,
+                "scale": a.ref_scale,
+            }],
+        })
     else:
-        res = run(DEPTH_CTRL, {**inp, "image_url": src_url, "strength": a.strength})
+        mode = "t2i (fresh content)" if a.t2i else "i2i"
+        print(f"3/3 depth-locked restage (FLUX Control-LoRA Depth, {mode}) …")
+        inp = {
+            "control_lora_image_url": depth_url,
+            "prompt": a.prompt,
+            "control_lora_strength": a.depth_scale,
+            "num_inference_steps": a.steps,
+            "guidance_scale": a.guidance,
+            "image_size": "landscape_4_3",
+            "output_format": "jpeg",
+        }
+        if a.t2i:
+            res = run(DEPTH_CTRL_T2I, inp)
+        else:
+            res = run(DEPTH_CTRL, {**inp, "image_url": src_url, "strength": a.strength})
     out_url = find_url(res)
     if not out_url:
         sys.exit(f"no output image in response: {json.dumps(res)[:400]}")
