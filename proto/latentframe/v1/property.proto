@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+// Package latentframe.v1 is the Latent Frame domain contract: the models that flow
+// through the pipeline, and (in events.proto) the domain events stages emit.
+package latentframe.v1;
+
+// Property is one listing flowing through the six-stage pipeline.
+message Property {
+  string id = 1;
+  GlobalVision vision = 2;
+  repeated Room rooms = 3;
+}
+
+// Room accumulates each stage's artifact for a single space.
+message Room {
+  string id = 1;
+  string label = 2;             // e.g. "kitchen", "living room"
+  HeroFrame hero = 3;           // stage 1 · INGEST
+  RestageBrief brief = 4;       // stage 2 · UNDERSTAND
+  string after_still_uri = 5;   // stage 3 · RESTAGE
+  Verdict verdict = 6;          // stage 4 · VERIFY
+  string clip_uri = 7;          // stage 5 · ANIMATE
+}
+
+// HeroFrame is the sharpest, best-composed frame chosen to represent a room — the
+// control surface we perfect once, then animate.
+message HeroFrame {
+  string uri = 1;
+  double timestamp_s = 2;
+  double sharpness = 3;
+}
+
+// GlobalVision is the single design identity applied across the whole property so it
+// reads as one coherent renovation.
+message GlobalVision {
+  string style = 1;
+  string notes = 2;
+}
+
+// RestageBrief is stage 2's per-room output: what to change and in what style.
+message RestageBrief {
+  string current_state = 1;
+  string desired_change = 2;
+  string style = 3;
+}
+
+// Verdict is stage 4's honesty-gate ruling. Both flags must be true to ship.
+message Verdict {
+  bool architecture_preserved = 1;
+  bool believable = 2;
+  string reason = 3;
+}

@@ -11,6 +11,7 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -100,7 +101,7 @@ func (v Veo) Animate(ctx context.Context, image []byte, mimeType, prompt string)
 		}
 
 		var result map[string]any
-		if err := v.do(ctx, http.MethodGet, fmt.Sprintf("%s/%s?key=%s", base, op.Name, v.apiKey), nil, &result); err != nil {
+		if err := v.doPoll(ctx, fmt.Sprintf("%s/%s?key=%s", base, op.Name, v.apiKey), &result); err != nil {
 			return nil, fmt.Errorf("veo poll: %w", err)
 		}
 		if done, _ := result["done"].(bool); !done {
@@ -165,12 +166,54 @@ func (v Veo) do(ctx context.Context, method, url string, body any, out any) erro
 	defer resp.Body.Close()
 	raw, _ := io.ReadAll(resp.Body)
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("HTTP %d: %s", resp.StatusCode, truncate(string(raw), 400))
+		return &httpError{code: resp.StatusCode, body: truncate(string(raw), 400)}
 	}
 	if out != nil {
 		return json.Unmarshal(raw, out)
 	}
 	return nil
+}
+
+// httpError carries the status code so poll retries can classify transient failures.
+type httpError struct {
+	code int
+	body string
+}
+
+func (e *httpError) Error() string { return fmt.Sprintf("HTTP %d: %s", e.code, e.body) }
+
+// isTransient reports whether err is worth retrying: a 429/5xx, or a transport error —
+// but NOT a context cancel/deadline (that's the caller giving up).
+func isTransient(err error) bool {
+	if err == nil || errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded) {
+		return false
+	}
+	var he *httpError
+	if errors.As(err, &he) {
+		return he.code == http.StatusTooManyRequests || he.code >= 500
+	}
+	return true
+}
+
+// doPoll is a GET with bounded retry-on-transient for the idempotent operation-status
+// endpoint — a running Veo operation survives a transient blip, so one bad poll must
+// not kill a minutes-long render. Backoff respects ctx.
+func (v Veo) doPoll(ctx context.Context, url string, out any) error {
+	const maxAttempts = 5
+	for attempt := 1; ; attempt++ {
+		err := v.do(ctx, http.MethodGet, url, nil, out)
+		if err == nil {
+			return nil
+		}
+		if attempt >= maxAttempts || !isTransient(err) {
+			return err
+		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-time.After(time.Duration(attempt) * time.Second):
+		}
+	}
 }
 
 // Animator adapts Veo to the pipeline.Animator contract (stage 5).

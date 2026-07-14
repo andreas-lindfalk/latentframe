@@ -72,6 +72,28 @@ func RestageFile(ctx context.Context, ed Editor, inPath, outPath, roomLabel, sty
 	return written, nil
 }
 
+// EditFile is RestageFile with a caller-supplied full prompt (bypassing RestagePrompt)
+// — e.g. UNDERSTAND's transform_prompt fed directly. Returns the written path.
+func EditFile(ctx context.Context, ed Editor, inPath, outPath, prompt string) (string, error) {
+	raw, err := os.ReadFile(inPath)
+	if err != nil {
+		return "", fmt.Errorf("read input image: %w", err)
+	}
+	mime, err := mimeFromExt(inPath)
+	if err != nil {
+		return "", err
+	}
+	out, outMime, err := ed.Edit(ctx, raw, mime, prompt)
+	if err != nil {
+		return "", err
+	}
+	written := retargetExt(outPath, outMime)
+	if err := os.WriteFile(written, out, 0o644); err != nil {
+		return "", fmt.Errorf("write output image: %w", err)
+	}
+	return written, nil
+}
+
 // retargetExt rewrites path's extension to match the returned media type.
 func retargetExt(path, mime string) string {
 	want := map[string]string{"image/png": ".png", "image/jpeg": ".jpg", "image/webp": ".webp"}[mime]

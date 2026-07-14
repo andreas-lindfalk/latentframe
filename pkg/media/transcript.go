@@ -2,6 +2,7 @@ package media
 
 import (
 	"fmt"
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -100,15 +101,14 @@ func parseTimecodeToMs(input string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	millis, err := strconv.Atoi(secParts[1])
+	// secParts[1] is the fractional second. Parse it as a decimal fraction (0.<frac>)
+	// so it is correct for any digit-count. The previous Atoi+rescale corrupted every
+	// value < 100ms (e.g. "050" -> 500ms) because Atoi drops the leading zeros.
+	frac, err := strconv.ParseFloat("0."+secParts[1], 64)
 	if err != nil {
 		return 0, err
 	}
-	if millis < 10 {
-		millis *= 100
-	} else if millis < 100 {
-		millis *= 10
-	}
+	millis := int(math.Round(frac * 1000))
 
-	return int64(hours*3600*1000 + minutes*60*1000 + seconds*1000 + millis), nil
+	return int64(hours*3600*1000+minutes*60*1000+seconds*1000) + int64(millis), nil
 }

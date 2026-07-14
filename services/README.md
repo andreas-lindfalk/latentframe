@@ -6,9 +6,9 @@ an **async job queue** (video restage is a minutes-long job) and typed proto con
 
 | service     | pipeline stages          | responsibility                                     | status                |
 |-------------|--------------------------|----------------------------------------------------|-----------------------|
-| `ingest`    | 1 · INGEST               | video → keyframes, audio, transcript, hero frames  | **live** (local one-shot) |
+| `ingest`    | 1 · INGEST               | video → sharpest hero frame per room (scene-split + Laplacian) + transcript → manifest | **live** (smart selection) |
 | `director`  | 2 · UNDERSTAND, 4 · VERIFY | Claude art-director + honesty gate — **the moat**  | **live** — UNDERSTAND + VERIFY (strict tool use) |
-| `render`    | 3 · RESTAGE, 5 · ANIMATE | image gen + image-to-video (commodity providers)   | **live** — RESTAGE (Gemini) + ANIMATE (Veo 3.1), both proven on real input |
+| `render`    | 3 · RESTAGE, 5 · ANIMATE / v2v | image + video providers, all behind interfaces | **live** — picture track: RESTAGE (Gemini) + ANIMATE (Veo); video track: TRANSFORM (`render transform`, in-context v2v via fal / `pkg/videoedit`) |
 | `assembler` | 6 · ASSEMBLE             | property page: reveal + before/after + lead capture | **live** (`build` + `serve`) |
 | `api`       | —                        | job submit/status gateway (lead capture seeded in assembler `serve`) | planned |
 

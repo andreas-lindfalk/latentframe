@@ -187,6 +187,9 @@ func serve(args []string) {
 }
 
 func resolve(dir, p string) string {
+	if strings.TrimSpace(p) == "" {
+		return "" // missing asset path — keep it empty so dataURI reports it, rather than joining to (and reading) dir
+	}
 	if filepath.IsAbs(p) {
 		return p
 	}
@@ -195,6 +198,9 @@ func resolve(dir, p string) string {
 
 // dataURI reads a file and returns a data: URI, detecting the media type from bytes.
 func dataURI(path string) string {
+	if strings.TrimSpace(path) == "" {
+		log.Fatal("assembler: a required asset path is missing in property.json (check heroClip and every room's before/after)")
+	}
 	raw, err := os.ReadFile(path)
 	if err != nil {
 		log.Fatalf("read asset %s: %v", path, err)

@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package latentframe.v1;
+
+import "latentframe/v1/property.proto";
+
+// Domain events. Each message is the `data` payload of a CloudEvent; the CloudEvent
+// `type` is the reverse-DNS name in the comment, and `subject` is the property (or
+// property/room) id. Stages publish these; the pipeline advances by reacting to them.
+
+// ai.latentframe.property.ingested.v1 — stage 1 selected hero frames per room.
+message PropertyIngested {
+  string property_id = 1;
+  repeated Room rooms = 2;
+}
+
+// ai.latentframe.property.understood.v1 — stage 2 wrote the design vision + briefs.
+message PropertyUnderstood {
+  string property_id = 1;
+  GlobalVision vision = 2;
+  repeated Room rooms = 3;
+}
+
+// ai.latentframe.room.restaged.v1 — stage 3 produced an "after" still.
+message RoomRestaged {
+  string property_id = 1;
+  string room_id = 2;
+  string after_still_uri = 3;
+}
+
+// ai.latentframe.room.verified.v1 — stage 4 ruled on the still (may reject → re-stage).
+message RoomVerified {
+  string property_id = 1;
+  string room_id = 2;
+  Verdict verdict = 3;
+}
+
+// ai.latentframe.room.animated.v1 — stage 5 produced the reveal clip.
+message RoomAnimated {
+  string property_id = 1;
+  string room_id = 2;
+  string clip_uri = 3;
+}
+
+// ai.latentframe.property.assembled.v1 — stage 6 built the property page.
+message PropertyAssembled {
+  string property_id = 1;
+  string page_uri = 2;
+}

@@ -1,8 +1,13 @@
-.PHONY: build test tidy fmt vet check ingest
+.PHONY: build test tidy fmt vet check proto ingest restage-room
 
 # --- Go ---
 build: ## compile everything
 	go build ./...
+
+# --- proto (buf) ---
+proto: ## lint + regenerate Go from proto definitions → gen/go
+	buf lint
+	buf generate
 
 test: ## run tests
 	go test ./...

@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"github.com/andreas-lindfalk/latentframe/pkg/env"
+	"github.com/andreas-lindfalk/latentframe/pkg/videoedit"
 	"github.com/andreas-lindfalk/latentframe/services/render/internal/imageedit"
 	"github.com/andreas-lindfalk/latentframe/services/render/internal/video"
 )
@@ -30,20 +31,118 @@ func main() {
 	env.Load(".env")
 
 	if len(os.Args) < 2 {
-		log.Fatal("usage: render <restage|animate> ...")
+		log.Fatal("usage: render <restage|animate|transform|upscale|add-sound> ...")
 	}
-	if os.Getenv("GEMINI_API_KEY") == "" && os.Getenv("GOOGLE_API_KEY") == "" {
-		log.Fatal("no key set. Put GEMINI_API_KEY=... in .env (get one at aistudio.google.com/apikey)")
-	}
-
+	// Each subcommand validates its own provider key (Gemini for restage/animate,
+	// fal for the video-track ops), so there's no global key check here.
 	switch os.Args[1] {
 	case "restage":
 		restage(os.Args[2:])
 	case "animate":
 		animate(os.Args[2:])
+	case "transform":
+		transformCmd(os.Args[2:])
+	case "upscale":
+		upscaleCmd(os.Args[2:])
+	case "add-sound":
+		soundCmd(os.Args[2:])
 	default:
-		log.Fatalf("unknown command %q (use: restage | animate)", os.Args[1])
+		log.Fatalf("unknown command %q (use: restage | animate | transform | upscale | add-sound)", os.Args[1])
 	}
+}
+
+// upscaleCmd runs the high-quality delivery step: raise the video's resolution.
+func upscaleCmd(args []string) {
+	fs := flag.NewFlagSet("upscale", flag.ExitOnError)
+	url := fs.String("url", "", "source video URL (required)")
+	model := fs.String("model", "", "fal upscale model id (default: topaz)")
+	out := fs.String("out", "", "optional path to download the upscaled video")
+	timeout := fs.Duration("timeout", 15*time.Minute, "max time to wait")
+	_ = fs.Parse(args)
+	if *url == "" {
+		fs.Usage()
+		log.Fatal("\n--url is required")
+	}
+	fal, err := videoedit.NewFal()
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
+	defer cancel()
+	log.Printf("upscaling %s …", *url)
+	res, err := fal.Upscale(ctx, videoedit.UpscaleRequest{VideoURL: *url, Model: *model})
+	if err != nil {
+		log.Fatal(err)
+	}
+	finish(ctx, res.VideoURL, *out)
+}
+
+// soundCmd adds ambient sound / SFX to a silent reveal clip.
+func soundCmd(args []string) {
+	fs := flag.NewFlagSet("add-sound", flag.ExitOnError)
+	url := fs.String("url", "", "source video URL (required)")
+	prompt := fs.String("prompt", "", "optional description of the sound to add")
+	model := fs.String("model", "", "fal sound model id (default: mirelo sfx)")
+	out := fs.String("out", "", "optional path to download the result")
+	timeout := fs.Duration("timeout", 15*time.Minute, "max time to wait")
+	_ = fs.Parse(args)
+	if *url == "" {
+		fs.Usage()
+		log.Fatal("\n--url is required")
+	}
+	fal, err := videoedit.NewFal()
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
+	defer cancel()
+	log.Printf("adding sound to %s …", *url)
+	res, err := fal.AddSound(ctx, videoedit.SoundRequest{VideoURL: *url, Prompt: *prompt, Model: *model})
+	if err != nil {
+		log.Fatal(err)
+	}
+	finish(ctx, res.VideoURL, *out)
+}
+
+// finish prints the result URL and optionally downloads it.
+func finish(ctx context.Context, videoURL, out string) {
+	fmt.Printf("✓ done → %s\n", videoURL)
+	if out != "" {
+		if err := videoedit.Download(ctx, videoURL, out); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("  downloaded → %s\n", out)
+	}
+}
+
+// transformCmd runs the VIDEO track (stage 3+5 fused): an in-context v2v edit that
+// transforms a real walkthrough in place — same camera, architecture preserved.
+func transformCmd(args []string) {
+	fs := flag.NewFlagSet("transform", flag.ExitOnError)
+	url := fs.String("url", "", "source video URL, publicly reachable (required)")
+	prompt := fs.String("prompt", "", "edit / re-stage prompt (required)")
+	out := fs.String("out", "", "optional path to download the transformed video")
+	keepAudio := fs.Bool("keep-audio", false, "keep the source audio")
+	timeout := fs.Duration("timeout", 15*time.Minute, "max time to wait")
+	_ = fs.Parse(args)
+	if *url == "" || *prompt == "" {
+		fs.Usage()
+		log.Fatal("\n--url and --prompt are required")
+	}
+
+	fal, err := videoedit.NewFal()
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
+	defer cancel()
+
+	log.Printf("transforming (v2v) %s … (this takes a few minutes)", *url)
+	res, err := fal.Transform(ctx, videoedit.Request{VideoURL: *url, Prompt: *prompt, KeepAudio: *keepAudio})
+	if err != nil {
+		log.Fatal(err)
+	}
+	finish(ctx, res.VideoURL, *out)
 }
 
 // restage runs stage 3: hero frame → re-staged "after" still.
@@ -53,6 +152,7 @@ func restage(args []string) {
 	out := fs.String("out", "", "path to write the re-staged 'after' image (required)")
 	room := fs.String("room", "", "room label, e.g. 'kitchen'")
 	style := fs.String("style", "", "target design style (defaults to a warm modern minimalism)")
+	prompt := fs.String("prompt", "", "full edit prompt (e.g. UNDERSTAND's transform_prompt); overrides --style")
 	_ = fs.Parse(args)
 	if *in == "" || *out == "" {
 		fs.Usage()
@@ -63,8 +163,15 @@ func restage(args []string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("re-staging %s → %s (style: %q)", *in, *out, styleOrDefault(*style))
-	written, err := imageedit.RestageFile(context.Background(), editor, *in, *out, *room, *style)
+
+	var written string
+	if strings.TrimSpace(*prompt) != "" {
+		log.Printf("re-staging %s → %s (using supplied prompt)", *in, *out)
+		written, err = imageedit.EditFile(context.Background(), editor, *in, *out, *prompt)
+	} else {
+		log.Printf("re-staging %s → %s (style: %q)", *in, *out, styleOrDefault(*style))
+		written, err = imageedit.RestageFile(context.Background(), editor, *in, *out, *room, *style)
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

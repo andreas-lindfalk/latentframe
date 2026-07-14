@@ -75,7 +75,7 @@ func understandCmd(args []string) {
 	room := fs.String("room", "", "room label, e.g. 'kitchen'")
 	transcript := fs.String("transcript", "", "optional path to spoken narration (.txt/.srt/.vtt)")
 	marketCtx := fs.String("context", "premium Spanish Costa Blanca property marketed to international buyers", "market context")
-	printOnly := fs.String("print", "brief", "output: 'brief' (full) or 'style' (just the style, for piping into render)")
+	printOnly := fs.String("print", "brief", "output: 'brief' (full), 'prompt' (just the transform prompt, for piping), or 'style'")
 	_ = fs.Parse(args)
 	if *image == "" {
 		fs.Usage()
@@ -101,11 +101,19 @@ func understandCmd(args []string) {
 		log.Fatal(err)
 	}
 
-	if *printOnly == "style" {
+	switch *printOnly {
+	case "prompt":
+		fmt.Println(brief.TransformPrompt)
+		return
+	case "style":
 		fmt.Println(brief.Style)
 		return
 	}
-	fmt.Printf("current state : %s\n", brief.CurrentState)
-	fmt.Printf("desired change: %s\n", brief.DesiredChange)
-	fmt.Printf("style         : %s\n", brief.Style)
+	fmt.Printf("current state  : %s\n", brief.CurrentState)
+	fmt.Printf("vision         : %s\n", brief.VisionInterpretation)
+	fmt.Printf("remove         : %s\n", brief.Remove)
+	fmt.Printf("add            : %s\n", brief.Add)
+	fmt.Printf("style          : %s\n", brief.Style)
+	fmt.Println(strings.Repeat("─", 60))
+	fmt.Printf("transform prompt:\n%s\n", brief.TransformPrompt)
 }
