@@ -18,9 +18,23 @@ import (
 )
 
 // Editor applies an instruction to an image and returns the edited image. Concrete
-// implementations wrap an image-generation provider (see gemini.go).
+// implementations wrap an image-generation provider (see gemini.go, fluxdepth.go).
 type Editor interface {
 	Edit(ctx context.Context, image []byte, mimeType, instruction string) (out []byte, outMime string, err error)
+}
+
+// NewEditor selects a RESTAGE engine by name: "depth-t2i" (default — the depth-locked
+// FLUX aesthetic engine, needs FAL_API_KEY) or "gemini" (in-context edit, needs
+// GEMINI_API_KEY). Shared by the render CLI and the best-of-N orchestrator.
+func NewEditor(engine string) (Editor, error) {
+	switch engine {
+	case "depth-t2i", "":
+		return NewFluxDepth()
+	case "gemini":
+		return NewGemini()
+	default:
+		return nil, fmt.Errorf("unknown restage engine %q (use 'depth-t2i' or 'gemini')", engine)
+	}
 }
 
 // RestagePrompt builds the stage-3 instruction from the room and the property's one

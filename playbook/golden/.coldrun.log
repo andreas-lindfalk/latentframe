@@ -1,0 +1,64 @@
+building director…
+cold run: best-of-3, inspire bar, depth-t2i — 9 rooms across 2 properties
+=== zeniamar_living (living room) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 2: rejected ✗
+    cand 1: rejected ✗
+    cand 3: rejected ✗
+  ✗ 0/3 candidates passed the inspire honesty bar — nothing to ship (strengthen the prompt or raise -n)
+=== zeniamar_kitchen (kitchen) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 1: HONEST ✓
+    cand 2: HONEST ✓
+    cand 3: rejected ✗
+  ✓ shipped 2/3 honest → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun/zeniamar_kitchen_after.jpg
+    reason: Candidate 1 offers a fully transformed, cohesive warm-wood-and-cream Mediterranean kitchen with cozy styling (olive tree, terracotta pots, hanging copperware) and no awkward artifacts, whereas Candidate 2 has a confusing double-cooktop layout and duller, emptier composition.
+=== zeniamar_bath (bathroom) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 3: HONEST ✓
+    cand 2: HONEST ✓
+    cand 1: HONEST ✓
+  ✓ shipped 3/3 honest → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun/zeniamar_bath_after.jpg
+    reason: It fully transforms the space into a cohesive, warm luxe spa with elegant stone-look tiles, brass fixtures, styled toiletries and greenery, reading as the most aspirational and artifact-free real-estate photograph.
+=== zeniamar_bedroom (bedroom) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 2: HONEST ✓
+    cand 1: rejected ✗
+    cand 3: rejected ✗
+  ✓ shipped 1/3 honest → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun/zeniamar_bedroom_after.jpg
+    reason: only honest candidate
+=== rosas_living (living room) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 2: HONEST ✓
+    cand 1: rejected ✗
+    cand 3: HONEST ✓
+  ✓ shipped 2/3 honest → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun/rosas_living_after.jpg
+    reason: Candidate 1 is the most cohesive and aspirational transformation, with warm terracotta tiles, a beautiful brick archway, tasteful staging and no dated finishes, reading like a premium Mediterranean real-estate photo, whereas Candidate 2 feels flatter with awkward composition and dead zones.
+=== rosas_kitchen (kitchen) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 3: rejected ✗
+    cand 1: HONEST ✓
+    cand 2: HONEST ✓
+  ✓ shipped 2/3 honest → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun/rosas_kitchen_after.jpg
+    reason: It fully transforms the space into a cohesive, warm Mediterranean riad kitchen with exposed wood beams, terracotta accents, a rattan pendant, and an inviting connected dining area, reading as the most aspirational premium listing photo.
+=== rosas_bath (bathroom) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 1: rejected ✗
+    cand 3: rejected ✗
+    cand 2: rejected ✗
+  ✗ 0/3 candidates passed the inspire honesty bar — nothing to ship (strengthen the prompt or raise -n)
+=== rosas_bath2 (bathroom) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 3: HONEST ✓
+    cand 2: HONEST ✓
+    cand 1: rejected ✗
+  ✓ shipped 2/3 honest → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun/rosas_bath2_after.jpg
+    reason: It fully transforms the dated tiled bathroom into a warm, cohesive luxe spa with terrazzo fixtures, brass accents, warm wood and a clean walk-in glass shower, reading as the most aspirational premium listing photo without odd artifacts.
+=== rosas_bedroom (bedroom) ===
+  generating 3 candidate(s) with depth-t2i …
+    cand 1: rejected ✗
+    cand 2: rejected ✗
+    cand 3: HONEST ✓
+  ✓ shipped 1/3 honest → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun/rosas_bedroom_after.jpg
+    reason: only honest candidate
+✓ cold run done → /Users/andreaslindfalk/dev/latentframe/playbook/golden/.coldrun

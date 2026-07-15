@@ -22,9 +22,16 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FAL_QUEUE = "https://queue.fal.run"
 FAL_UPLOAD_INIT = "https://rest.alpha.fal.ai/storage/upload/initiate?storage_type=fal-cdn-v3"
 
-DEPTH_MODEL = "fal-ai/imageutils/depth"                       # Midas depth map
-DEPTH_CTRL = "fal-ai/flux-control-lora-depth/image-to-image"  # structure-locked FLUX (i2i)
-DEPTH_CTRL_T2I = "fal-ai/flux-control-lora-depth"             # depth structure, FRESH content (t2i)
+# structural conditioning: depth = 3D layout (blind to flat openings — loses doors/windows);
+# canny = edges (locks door/window/opening LINES — the taming lever for removed openings).
+CONTROL = {
+    "depth": {"pre": "fal-ai/imageutils/depth",
+              "t2i": "fal-ai/flux-control-lora-depth",
+              "i2i": "fal-ai/flux-control-lora-depth/image-to-image"},
+    "canny": {"pre": "fal-ai/image-preprocessors/canny",
+              "t2i": "fal-ai/flux-control-lora-canny",
+              "i2i": "fal-ai/flux-control-lora-canny/image-to-image"},
+}
 FLUX_GENERAL = "fal-ai/flux-general"                          # controlnet(depth) + IP-adapter(style ref)
 
 
@@ -133,9 +140,11 @@ def main():
     ap.add_argument("--prompt", required=True)
     ap.add_argument("--strength", type=float, default=0.95, help="i2i denoise; high = ignore source pixels")
     ap.add_argument("--depth-scale", type=float, default=0.8, help="control_lora_strength (structure lock)")
+    ap.add_argument("--control", choices=["depth", "canny"], default="depth",
+                    help="structural conditioning: depth (3D layout) or canny (edges — locks door/window lines)")
     ap.add_argument("--steps", type=int, default=30)
     ap.add_argument("--guidance", type=float, default=3.5)
-    ap.add_argument("--t2i", action="store_true", help="fresh generation from depth+prompt (no source pixels)")
+    ap.add_argument("--t2i", action="store_true", help="fresh generation from control+prompt (no source pixels)")
     ap.add_argument("--ref", help="style reference image (IP-Adapter, via flux-general) — show the aesthetic")
     ap.add_argument("--ref-scale", type=float, default=0.85, help="IP-Adapter strength")
     ap.add_argument("--keep-depth", help="optional path to also save the depth map")
@@ -145,11 +154,12 @@ def main():
     print(f"1/3 uploading {os.path.basename(a.inp)} …")
     src_url = upload(a.inp)
 
-    print("2/3 depth preprocess …")
-    depth = run(DEPTH_MODEL, {"image_url": src_url})
-    depth_url = find_url(depth)
+    ctrl = CONTROL[a.control]
+    print(f"2/3 {a.control} preprocess …")
+    pre = run(ctrl["pre"], {"image_url": src_url})
+    depth_url = find_url(pre)
     if not depth_url:
-        sys.exit(f"no depth map in response: {json.dumps(depth)[:400]}")
+        sys.exit(f"no {a.control} map in response: {json.dumps(pre)[:400]}")
     if a.keep_depth:
         download(depth_url, a.keep_depth)
 
@@ -177,7 +187,7 @@ def main():
         })
     else:
         mode = "t2i (fresh content)" if a.t2i else "i2i"
-        print(f"3/3 depth-locked restage (FLUX Control-LoRA Depth, {mode}) …")
+        print(f"3/3 {a.control}-locked restage (FLUX Control-LoRA {a.control}, {mode}) …")
         inp = {
             "control_lora_image_url": depth_url,
             "prompt": a.prompt,
@@ -188,9 +198,9 @@ def main():
             "output_format": "jpeg",
         }
         if a.t2i:
-            res = run(DEPTH_CTRL_T2I, inp)
+            res = run(ctrl["t2i"], inp)
         else:
-            res = run(DEPTH_CTRL, {**inp, "image_url": src_url, "strength": a.strength})
+            res = run(ctrl["i2i"], {**inp, "image_url": src_url, "strength": a.strength})
     out_url = find_url(res)
     if not out_url:
         sys.exit(f"no output image in response: {json.dumps(res)[:400]}")
