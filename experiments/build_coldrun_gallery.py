@@ -13,6 +13,10 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 IMG = os.path.join(ROOT, "playbook", "golden", "images")
 COLD = os.path.join(ROOT, "playbook", "golden", ".coldrun")
 
+# engine label (override with the LATENTFRAME_ENGINE_LABEL env; keep in sync with the run)
+ENGINE = os.environ.get("LATENTFRAME_ENGINE_LABEL", "Nano-Banana")
+ENGINE_DESC = "Nano-Banana (Gemini 3) in-context edit"
+
 # id | display name | property
 ROOMS = [
     ("zeniamar_living", "Living room", "Zeniamar"),
@@ -55,7 +59,7 @@ def main():
     for prop, rooms in groups.items():
         cards.append(f'<h2>{prop}</h2><div class="grid">')
         for name, before, after in rooms:
-            after_html = (f'<figure><img src="{after}" alt="after"><figcaption class="a">After · depth-t2i</figcaption></figure>'
+            after_html = (f'<figure><img src="{after}" alt="after"><figcaption class="a">After · {ENGINE}</figcaption></figure>'
                           if after else '<figure class="missing"><div>no honest candidate</div></figure>')
             cards.append(
                 f'<div class="pair"><h3>{name}</h3><div class="ba">'
@@ -64,7 +68,7 @@ def main():
         cards.append('</div>')
     body = "\n".join(cards)
 
-    html = f"""<title>Cold run — depth-t2i across both houses</title>
+    html = f"""<title>Cold run — {ENGINE} across both houses</title>
 <style>
   :root {{ --bg:#f3f1ec; --surface:#fff; --ink:#20242b; --muted:#6d7178; --line:#e0ddd5;
     --accent:#b5763a; --sans:'Helvetica Neue',Inter,system-ui,Arial,sans-serif; --mono:'SF Mono',ui-monospace,Menlo,monospace; }}
@@ -91,12 +95,12 @@ def main():
 </style>
 <div class="wrap">
   <p class="eyebrow">Latent Frame · cold run</p>
-  <h1>depth-t2i, across both houses</h1>
-  <p class="dek">Every key room of both properties, run cold through the new engine — depth-locked
-     FLUX generation, best-of-3, selected on the <b>inspire</b> honesty bar. No per-photo tuning.</p>
+  <h1>{ENGINE}, across both houses</h1>
+  <p class="dek">Every key room of both properties, run cold through the engine — {ENGINE_DESC},
+     best-of-3, selected on the <b>inspire</b> honesty bar. No per-photo tuning.</p>
   <p class="dek"><b>{shipped}/{len(ROOMS)}</b> rooms shipped an honest wow candidate.</p>
   {body}
-  <footer>depth-t2i · best-of-3 · inspire gate · director beststage · Latent Frame</footer>
+  <footer>{ENGINE_DESC} · best-of-3 · inspire gate · director beststage · Latent Frame</footer>
 </div>"""
     with open(out_path, "w") as f:
         f.write(html)
