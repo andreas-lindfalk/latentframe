@@ -11,8 +11,8 @@ The MVP test: does anyone click to shop the look? EVAL/product-preview tooling f
 import base64, json, os, subprocess, sys, tempfile
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-IMG = os.path.join(ROOT, "playbook", "golden", "images")
-COLD = os.path.join(ROOT, "playbook", "golden", ".coldrun")
+# durable, committed page assets — NOT the gitignored .coldrun (which gets wiped)
+RENDERS = os.path.join(ROOT, "web", "funnel", "renders")
 
 
 def uri(path, tmp):
@@ -33,8 +33,8 @@ def main():
 
     sections = []
     for r in data["rooms"]:
-        before = uri(os.path.join(IMG, r["id"] + "_before.jpg"), tmp)
-        after = uri(os.path.join(COLD, r["id"] + "_after.jpg"), tmp)
+        before = uri(os.path.join(RENDERS, r["id"] + "_before.jpg"), tmp)
+        after = uri(os.path.join(RENDERS, r["id"] + "_after.jpg"), tmp)
         cards = "".join(
             f'<a class="card" href="{p["url"]}" target="_blank" rel="noopener" data-track="shop" '
             f'data-room="{r["id"]}" data-product="{p["name"]}">'
