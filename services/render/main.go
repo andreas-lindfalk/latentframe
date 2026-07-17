@@ -153,7 +153,7 @@ func restage(args []string) {
 	room := fs.String("room", "", "room label, e.g. 'kitchen'")
 	style := fs.String("style", "", "target design style (defaults to a warm modern minimalism)")
 	prompt := fs.String("prompt", "", "full edit prompt (e.g. UNDERSTAND's transform_prompt); overrides --style")
-	engine := fs.String("engine", "depth-t2i", "restage engine: 'depth-t2i' (FLUX depth ControlNet, needs FAL_API_KEY) or 'gemini' (in-context edit, needs GEMINI_API_KEY)")
+	engine := fs.String("engine", "nano-banana", "restage engine: 'nano-banana' (Gemini 3 in-context edit, bake-off winner), 'depth-t2i' (FLUX Control-LoRA), or 'gemini' (legacy)")
 	_ = fs.Parse(args)
 	if *in == "" || *out == "" {
 		fs.Usage()

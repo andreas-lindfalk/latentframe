@@ -63,7 +63,7 @@ func beststageCmd(args []string) {
 	room := fs.String("room", "", "room label, e.g. 'living room'")
 	n := fs.Int("n", 3, "candidates to generate")
 	mode := fs.String("mode", "inspire", "honesty bar: 'inspire' (potential) or 'strict' (shell-vs-contents)")
-	engine := fs.String("engine", "depth-t2i", "restage engine: 'depth-t2i' or 'gemini'")
+	engine := fs.String("engine", "nano-banana", "restage engine: 'nano-banana' (default), 'depth-t2i' or 'gemini'")
 	keepDir := fs.String("keep-dir", "", "optional dir to keep all candidates (else a temp dir)")
 	_ = fs.Parse(args)
 	if *in == "" || *out == "" || *prompt == "" {

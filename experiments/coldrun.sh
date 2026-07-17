@@ -12,7 +12,7 @@
 set -u
 R="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$R/playbook/golden/.coldrun"; mkdir -p "$OUT"
-P="$R/playbook/prompts/depth-t2i"
+P="$R/playbook/prompts/nano-banana"
 IMG="$R/playbook/golden/images"
 N="${1:-3}"
 
@@ -37,7 +37,7 @@ while IFS='|' read -r id label pf; do
   before="$IMG/${id}_before.jpg"
   [ -f "$before" ] || { echo "!! missing $before"; continue; }
   echo "=== $id ($label) ==="
-  "$BIN" beststage --engine depth-t2i --mode inspire --n "$N" \
+  "$BIN" beststage --engine nano-banana --mode inspire --n "$N" \
     --in "$before" --room "$label" --prompt "$(cat "$P/${pf}.txt")" \
     --out "$OUT/${id}_after.jpg" 2>&1 | sed 's/^/  /'
 done <<< "$ROOMS"
