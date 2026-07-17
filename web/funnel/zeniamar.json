@@ -1,0 +1,51 @@
+{
+  "property": "Zeniamar",
+  "tagline": "See what this home could become — and shop the look.",
+  "note": "Curated shop-the-look products for the MVP demand test. Links point to real Sklum / Leroy Merlin searches; add affiliate tags before going live. Products chosen to match the items in each restaged render.",
+  "rooms": [
+    {
+      "id": "zeniamar_living",
+      "name": "Living room",
+      "blurb": "The dated leather suite reimagined as a warm, editorial Mediterranean living room — linen, jute, terracotta and olive.",
+      "products": [
+        {"name": "Cream linen slipcover 3-seat sofa", "retailer": "Sklum", "price": "€549", "url": "https://www.sklum.com/en/search?q=linen%20slipcover%20sofa"},
+        {"name": "Round jute rug", "retailer": "Sklum", "price": "€99", "url": "https://www.sklum.com/en/search?q=round%20jute%20rug"},
+        {"name": "Rattan pendant lamp", "retailer": "Sklum", "price": "€69", "url": "https://www.sklum.com/en/search?q=rattan%20pendant%20lamp"},
+        {"name": "Olive tree in terracotta pot", "retailer": "Leroy Merlin", "price": "€79", "url": "https://www.leroymerlin.es/search.html?q=olivo%20maceta"}
+      ]
+    },
+    {
+      "id": "zeniamar_kitchen",
+      "name": "Kitchen",
+      "blurb": "A tired galley into a refined cream-and-stone Mediterranean kitchen with a warm zellige backsplash.",
+      "products": [
+        {"name": "Zellige-style wall tile", "retailer": "Leroy Merlin", "price": "€24/m²", "url": "https://www.leroymerlin.es/search.html?q=azulejo%20zellige"},
+        {"name": "Matte-black kitchen mixer tap", "retailer": "Leroy Merlin", "price": "€89", "url": "https://www.leroymerlin.es/search.html?q=grifo%20cocina%20negro"},
+        {"name": "Open oak wall shelf", "retailer": "Sklum", "price": "€45", "url": "https://www.sklum.com/en/search?q=oak%20wall%20shelf"},
+        {"name": "Stoneware ceramic tableware set", "retailer": "Sklum", "price": "€59", "url": "https://www.sklum.com/en/search?q=stoneware%20ceramic%20set"}
+      ]
+    },
+    {
+      "id": "zeniamar_bath",
+      "name": "Bathroom",
+      "blurb": "The blue-tiled bathroom as a warm stone spa — floating oak vanity, brass, backlit mirror, walk-in shower.",
+      "products": [
+        {"name": "Floating oak vanity unit", "retailer": "Leroy Merlin", "price": "€299", "url": "https://www.leroymerlin.es/search.html?q=mueble%20ba%C3%B1o%20suspendido%20roble"},
+        {"name": "Stone / terrazzo countertop basin", "retailer": "Sklum", "price": "€119", "url": "https://www.sklum.com/en/search?q=stone%20countertop%20basin"},
+        {"name": "Backlit round LED mirror", "retailer": "Leroy Merlin", "price": "€129", "url": "https://www.leroymerlin.es/search.html?q=espejo%20redondo%20led"},
+        {"name": "Aged-brass shower set", "retailer": "Leroy Merlin", "price": "€159", "url": "https://www.leroymerlin.es/search.html?q=conjunto%20ducha%20oro"}
+      ]
+    },
+    {
+      "id": "zeniamar_bedroom",
+      "name": "Bedroom",
+      "blurb": "The pine bedroom set into a restful riad — carved wood, cream linen, layered textiles and rattan.",
+      "products": [
+        {"name": "Rattan / cane bed frame", "retailer": "Sklum", "price": "€399", "url": "https://www.sklum.com/en/search?q=rattan%20bed"},
+        {"name": "Washed linen duvet set", "retailer": "Sklum", "price": "€89", "url": "https://www.sklum.com/en/search?q=linen%20duvet%20set"},
+        {"name": "Cane sideboard / dresser", "retailer": "Sklum", "price": "€249", "url": "https://www.sklum.com/en/search?q=cane%20sideboard"},
+        {"name": "Round rattan wall mirror", "retailer": "Sklum", "price": "€59", "url": "https://www.sklum.com/en/search?q=round%20rattan%20mirror"}
+      ]
+    }
+  ]
+}
