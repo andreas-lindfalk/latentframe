@@ -104,6 +104,7 @@ def main():
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--prompt", required=True, help="edit instruction (keep architecture, gut furniture, style)")
     ap.add_argument("--only", help="comma-separated subset of model names")
+    ap.add_argument("--ref", help="extra reference image URL (e.g. a product photo) — for image_urls models")
     a = ap.parse_args()
     KEY = fal_key()
     os.makedirs(a.out_dir, exist_ok=True)
@@ -115,7 +116,11 @@ def main():
     for name, ep, imgfield in MODELS:
         if want and name not in want:
             continue
-        inp = {imgfield: ([src] if imgfield == "image_urls" else src), "prompt": a.prompt}
+        if imgfield == "image_urls":
+            imgs = [src] + ([a.ref] if a.ref else [])
+            inp = {"image_urls": imgs, "prompt": a.prompt}
+        else:
+            inp = {"image_url": src, "prompt": a.prompt}
         try:
             t = time.time()
             res = run(ep, inp)
