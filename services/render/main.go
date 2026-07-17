@@ -22,7 +22,7 @@ import (
 
 	"github.com/andreas-lindfalk/latentframe/pkg/env"
 	"github.com/andreas-lindfalk/latentframe/pkg/videoedit"
-	"github.com/andreas-lindfalk/latentframe/services/render/internal/imageedit"
+	"github.com/andreas-lindfalk/latentframe/pkg/imageedit"
 	"github.com/andreas-lindfalk/latentframe/services/render/internal/video"
 )
 
@@ -153,16 +153,18 @@ func restage(args []string) {
 	room := fs.String("room", "", "room label, e.g. 'kitchen'")
 	style := fs.String("style", "", "target design style (defaults to a warm modern minimalism)")
 	prompt := fs.String("prompt", "", "full edit prompt (e.g. UNDERSTAND's transform_prompt); overrides --style")
+	engine := fs.String("engine", "nano-banana", "restage engine: 'nano-banana' (Gemini 3 in-context edit, bake-off winner), 'depth-t2i' (FLUX Control-LoRA), or 'gemini' (legacy)")
 	_ = fs.Parse(args)
 	if *in == "" || *out == "" {
 		fs.Usage()
 		log.Fatal("\n--in and --out are required")
 	}
 
-	editor, err := imageedit.NewGemini()
+	editor, err := imageedit.NewEditor(*engine)
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Printf("restage engine: %s", *engine)
 
 	var written string
 	if strings.TrimSpace(*prompt) != "" {
