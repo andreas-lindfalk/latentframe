@@ -1,3 +1,6 @@
 .out/
 .coldrun/
+.coldrun.log
+.recheck.log
+.kcheck*.log
 results.json
