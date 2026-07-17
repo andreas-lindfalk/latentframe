@@ -31,6 +31,11 @@ CONTROL = {
     "canny": {"pre": "fal-ai/image-preprocessors/canny",
               "t2i": "fal-ai/flux-control-lora-canny",
               "i2i": "fal-ai/flux-control-lora-canny/image-to-image"},
+    # SHELL-ONLY: MLSD = straight architectural line segments (walls/window/door frames,
+    # ignores soft furniture). Fed into the canny control-lora → locks shell, frees fixtures.
+    "mlsd": {"pre": "fal-ai/image-preprocessors/mlsd",
+             "t2i": "fal-ai/flux-control-lora-canny",
+             "i2i": "fal-ai/flux-control-lora-canny/image-to-image"},
 }
 FLUX_GENERAL = "fal-ai/flux-general"                          # controlnet(depth) + IP-adapter(style ref)
 
@@ -140,8 +145,8 @@ def main():
     ap.add_argument("--prompt", required=True)
     ap.add_argument("--strength", type=float, default=0.95, help="i2i denoise; high = ignore source pixels")
     ap.add_argument("--depth-scale", type=float, default=0.8, help="control_lora_strength (structure lock)")
-    ap.add_argument("--control", choices=["depth", "canny"], default="depth",
-                    help="structural conditioning: depth (3D layout) or canny (edges — locks door/window lines)")
+    ap.add_argument("--control", choices=["depth", "canny", "mlsd"], default="depth",
+                    help="structural conditioning: depth (3D), canny (all edges), mlsd (shell-only architectural lines)")
     ap.add_argument("--steps", type=int, default=30)
     ap.add_argument("--guidance", type=float, default=3.5)
     ap.add_argument("--t2i", action="store_true", help="fresh generation from control+prompt (no source pixels)")

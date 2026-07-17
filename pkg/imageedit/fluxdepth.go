@@ -1,12 +1,18 @@
 // fluxdepth.go — the depth-t2i RESTAGE backend (the aesthetic engine).
 //
 // Instead of an in-context edit (which anchors the dated furniture, as Gemini does),
-// this locks only the room's STRUCTURE via a depth map and generates FRESH content from
-// the prompt. That fully guts a dated room while keeping the geometry — and pairs with
-// the VERIFY gate's INSPIRE bar (decorative drift is fine; size/light/view/structure are
-// protected). See the branch's cold-run validation.
+// this locks only the room's STRUCTURE (via a control map) and generates FRESH content
+// from the prompt. That fully guts a dated room while keeping the geometry — and pairs
+// with the VERIFY gate's INSPIRE bar (decorative drift is fine; size/light/view/structure
+// are protected).
 //
-//	source → fal depth preprocessor → FLUX Control-LoRA Depth (text-to-image) → after
+// Two structural controls (LATENTFRAME_CONTROL):
+//   - canny (DEFAULT): edge map — locks the LINES of windows/doors/openings (the "shell"),
+//     while a fixture-aware prompt is free to upgrade fixtures (bidet→shower). The taming
+//     win: keeps openings honest without over-mimicking the old fixtures.
+//   - depth: 3D layout — frees fixtures but is blind to flat openings (drops windows/doors).
+//
+//	source → fal <control> preprocessor → FLUX Control-LoRA <control> (t2i) → after
 package imageedit
 
 import (
@@ -22,69 +28,79 @@ import (
 	"github.com/andreas-lindfalk/latentframe/pkg/fal"
 )
 
-const (
-	depthModel   = "fal-ai/imageutils/depth"          // Midas depth map
-	fluxDepthT2I = "fal-ai/flux-control-lora-depth"    // depth structure, fresh content
-)
-
-// FluxDepth is an Editor that restages via depth-locked FLUX generation.
-type FluxDepth struct {
-	fal        *fal.Client
-	depthScale float64 // control_lora_strength — structure fidelity (0.95 = sweet spot)
-	steps      int
-	guidance   float64
+// control map: fal preprocessor + matching FLUX Control-LoRA (t2i) endpoint, per mode.
+var controlModels = map[string]struct{ pre, ctrl string }{
+	"canny": {"fal-ai/image-preprocessors/canny", "fal-ai/flux-control-lora-canny"},
+	"depth": {"fal-ai/imageutils/depth", "fal-ai/flux-control-lora-depth"},
 }
 
-// NewFluxDepth builds the depth-t2i backend. Reads FAL_API_KEY; tunables from env
-// (LATENTFRAME_DEPTH_SCALE / _FLUX_STEPS / _FLUX_GUIDANCE) with validated defaults.
+// FluxDepth is an Editor that restages via structure-locked FLUX generation.
+type FluxDepth struct {
+	fal      *fal.Client
+	control  string  // "canny" (default) | "depth"
+	scale    float64 // control_lora_strength — structure fidelity
+	steps    int
+	guidance float64
+}
+
+// NewFluxDepth builds the aesthetic engine. Reads FAL_API_KEY; tunables from env
+// (LATENTFRAME_CONTROL / _DEPTH_SCALE / _FLUX_STEPS / _FLUX_GUIDANCE). Defaults: canny
+// control at strength 0.8 — the taming sweet spot (shell locked, fixtures free).
 func NewFluxDepth() (FluxDepth, error) {
 	c, err := fal.New()
 	if err != nil {
 		return FluxDepth{}, err
 	}
+	control := os.Getenv("LATENTFRAME_CONTROL")
+	if _, ok := controlModels[control]; !ok {
+		control = "canny"
+	}
 	return FluxDepth{
-		fal:        c,
-		depthScale: envFloat("LATENTFRAME_DEPTH_SCALE", 0.95),
-		steps:      envInt("LATENTFRAME_FLUX_STEPS", 30),
-		guidance:   envFloat("LATENTFRAME_FLUX_GUIDANCE", 3.5),
+		fal:      c,
+		control:  control,
+		scale:    envFloat("LATENTFRAME_DEPTH_SCALE", 0.8),
+		steps:    envInt("LATENTFRAME_FLUX_STEPS", 30),
+		guidance: envFloat("LATENTFRAME_FLUX_GUIDANCE", 3.5),
 	}, nil
 }
 
 var _ Editor = FluxDepth{}
 
-// Edit restages the image: upload → depth map → depth-locked FLUX generation → bytes.
+// Edit restages the image: upload → control map → structure-locked FLUX generation → bytes.
 // instruction is the full target-look prompt; the SOURCE only contributes its structure.
 func (f FluxDepth) Edit(ctx context.Context, img []byte, mimeType, instruction string) ([]byte, string, error) {
+	m := controlModels[f.control]
+
 	srcURL, err := f.fal.Upload(ctx, img, mimeType, "source"+extFor(mimeType))
 	if err != nil {
 		return nil, "", fmt.Errorf("upload source: %w", err)
 	}
 
-	depthRes, err := f.fal.Run(ctx, depthModel, map[string]any{"image_url": srcURL})
+	preRes, err := f.fal.Run(ctx, m.pre, map[string]any{"image_url": srcURL})
 	if err != nil {
-		return nil, "", fmt.Errorf("depth preprocess: %w", err)
+		return nil, "", fmt.Errorf("%s preprocess: %w", f.control, err)
 	}
-	depthURL := fal.FirstImageURL(depthRes)
-	if depthURL == "" {
-		return nil, "", fmt.Errorf("depth preprocess returned no image")
+	ctrlURL := fal.FirstImageURL(preRes)
+	if ctrlURL == "" {
+		return nil, "", fmt.Errorf("%s preprocess returned no image", f.control)
 	}
 
 	input := map[string]any{
-		"control_lora_image_url": depthURL,
+		"control_lora_image_url": ctrlURL,
 		"prompt":                 instruction,
-		"control_lora_strength":  f.depthScale,
+		"control_lora_strength":  f.scale,
 		"num_inference_steps":    f.steps,
 		"guidance_scale":         f.guidance,
 		"image_size":             matchedSize(img),
 		"output_format":          "jpeg",
 	}
-	res, err := f.fal.Run(ctx, fluxDepthT2I, input)
+	res, err := f.fal.Run(ctx, m.ctrl, input)
 	if err != nil {
-		return nil, "", fmt.Errorf("flux depth restage: %w", err)
+		return nil, "", fmt.Errorf("flux %s restage: %w", f.control, err)
 	}
 	outURL := fal.FirstImageURL(res)
 	if outURL == "" {
-		return nil, "", fmt.Errorf("flux depth restage returned no image")
+		return nil, "", fmt.Errorf("flux %s restage returned no image", f.control)
 	}
 	out, err := f.fal.Download(ctx, outURL)
 	if err != nil {
