@@ -33,6 +33,22 @@ in agent-memory.
    only moves taste — push prompts bolder/editorial for more wow with zero honesty risk
    (stochastic-for-taste, deterministic-for-facts, with the model owning the facts).
 
+## Probes — future areas (2026-07-17, all feasible)
+Quick probes (`experiments/bakeoff.py --only nano-banana-2`, results in ~/Downloads/…/probes):
+1. **Multi-style ("3 styles out of the box"):** one room rendered as warm-Mediterranean /
+   modern-Scandinavian-minimalist / classic-coastal-luxe — all three DISTINCT, high-quality,
+   windows preserved. **Trivial to ship: 3 prompt templates + a style selector.** Not everyone
+   wants riad, so this lifts conversion.
+2. **Authorized structural intent:** "remove the dividing wall (open-plan) + add a kitchen
+   island with seating" → done cleanly and believably, real windows/doors/shell kept. Works.
+   **Needs a 3rd honesty mode — `owner-authorized`** — because the change is intended, not a
+   lie; inspire/strict would (correctly) fail a removed wall. Feeds the video+voice core.
+3. **Product placement by construction (the moat):** pass a real product photo as a 2nd
+   reference image (`bakeoff.py --ref <url>`, nano-banana `image_urls`) → **the render features
+   THAT specific product** (a green velvet sofa placed + matched). So renders can be **shoppable
+   by construction** (the sofa you see IS the buyable one), not just "shop similar". Needs a
+   product catalog + reference images; this is the defensible shoppable layer.
+
 ## Open / next
 - best-of-2 likely enough (93%/draw) — drop from 3 to save cost.
 - Point the golden harness at nano-banana; Fable-as-judge A/B.

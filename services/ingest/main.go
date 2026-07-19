@@ -18,11 +18,13 @@ import (
 	"path/filepath"
 	"sort"
 
+	"github.com/andreas-lindfalk/latentframe/pkg/env"
 	"github.com/andreas-lindfalk/latentframe/pkg/media"
 )
 
 func main() {
 	log.SetFlags(0)
+	env.Load(".env") // so FAL_API_KEY is available for fal-backed Whisper
 
 	video := flag.String("video", "", "path to the walkthrough video (required)")
 	outDir := flag.String("out", "out", "output directory")
@@ -131,7 +133,7 @@ func run(video, outDir string, fps float64, maxRooms int, sceneTh float64, trans
 		if err := ff.ExtractAudio(ctx, video, audioPath); err != nil {
 			return err
 		}
-		segs, err := media.NewWhisperCLITranscriber(lang).Transcribe(ctx, audioPath)
+		segs, err := media.NewTranscriber(lang).Transcribe(ctx, audioPath)
 		if err != nil {
 			return err
 		}
