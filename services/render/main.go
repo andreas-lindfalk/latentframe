@@ -17,12 +17,15 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/andreas-lindfalk/latentframe/pkg/env"
-	"github.com/andreas-lindfalk/latentframe/pkg/videoedit"
 	"github.com/andreas-lindfalk/latentframe/pkg/imageedit"
+	"github.com/andreas-lindfalk/latentframe/pkg/propertymodel"
+	"github.com/andreas-lindfalk/latentframe/pkg/videoedit"
+	"github.com/andreas-lindfalk/latentframe/services/render/internal/showcase"
 	"github.com/andreas-lindfalk/latentframe/services/render/internal/video"
 )
 
@@ -31,13 +34,15 @@ func main() {
 	env.Load(".env")
 
 	if len(os.Args) < 2 {
-		log.Fatal("usage: render <restage|animate|transform|upscale|add-sound> ...")
+		log.Fatal("usage: render <restage|showcase|animate|transform|upscale|add-sound> ...")
 	}
 	// Each subcommand validates its own provider key (Gemini for restage/animate,
 	// fal for the video-track ops), so there's no global key check here.
 	switch os.Args[1] {
 	case "restage":
 		restage(os.Args[2:])
+	case "showcase":
+		showcaseCmd(os.Args[2:])
 	case "animate":
 		animate(os.Args[2:])
 	case "transform":
@@ -47,7 +52,7 @@ func main() {
 	case "add-sound":
 		soundCmd(os.Args[2:])
 	default:
-		log.Fatalf("unknown command %q (use: restage | animate | transform | upscale | add-sound)", os.Args[1])
+		log.Fatalf("unknown command %q (use: restage | showcase | animate | transform | upscale | add-sound)", os.Args[1])
 	}
 }
 
@@ -179,6 +184,99 @@ func restage(args []string) {
 	}
 	fmt.Printf("✓ wrote %s\n", written)
 	fmt.Println("next: director verify --before", *in, "--after", written)
+}
+
+// showcaseCmd runs the multi-style RESTAGE stage: a property spec → 3 style
+// variants per room via nano-banana + the page's data manifest. It is the
+// reproducible, in-repo path that feeds web/showcase.
+//
+//	render showcase --spec playbook/showcase/zeniamar.spec.json
+//	render showcase --spec … --generate=false          # re-emit manifest only
+//	render showcase --spec … --only-rooms living --only-style coastal
+func showcaseCmd(args []string) {
+	fs := flag.NewFlagSet("showcase", flag.ExitOnError)
+	spec := fs.String("spec", "", "hand-authored property spec JSON (use this OR --model)")
+	modelPath := fs.String("model", "", "curated property model from `director classify` (use this OR --spec)")
+	photos := fs.String("photos", "", "source photo folder the model's hero filenames resolve against (required with --model)")
+	app := fs.String("app", "web/showcase", "Next app dir; writes <app>/public/renders and <app>/data/*.json")
+	engine := fs.String("engine", "nano-banana", "restage engine")
+	generate := fs.Bool("generate", true, "run the model to (re)generate style renders; --generate=false emits the manifest only")
+	onlyStyle := fs.String("only-style", "", "limit to one style id (e.g. mediterranean)")
+	onlyRooms := fs.String("only-rooms", "", "comma-separated space ids to limit to (e.g. living,kitchen)")
+	conc := fs.Int("concurrency", 3, "max concurrent restage calls")
+	bestOf := fs.Int("best-of", 1, "candidates to generate per space×style (>1 = best-of-N: honesty-gate each, keep the honest ones)")
+	keep := fs.Int("keep", 1, "how many honest, distinct variants to keep per space×style")
+	gateVotes := fs.Int("gate-votes", 1, "independent honesty-gate passes per candidate (>1 = must pass ALL; raises recall on stubborn spaces like kitchens)")
+	slug := fs.String("slug", "", "property slug — namespaces output to <app>/public/renders/<slug>/ and <app>/data/<slug>.full.json (empty = root, back-compat)")
+	prompts := fs.String("prompts", "playbook/prompts/styles", "dir with per-style flavor prompts")
+	_ = fs.Parse(args)
+	if *spec == "" && *modelPath == "" {
+		fs.Usage()
+		log.Fatal("\n--spec or --model is required")
+	}
+
+	only := map[string]bool{}
+	for _, r := range strings.Split(*onlyRooms, ",") {
+		if r = strings.TrimSpace(r); r != "" {
+			only[r] = true
+		}
+	}
+
+	// --slug namespaces every output so multiple properties coexist in one app without
+	// clobbering each other (villa "kitchen" vs Zeniamar "kitchen"). Empty = legacy root.
+	rendersDir := filepath.Join(*app, "public", "renders")
+	reelsDir := filepath.Join(*app, "public", "reels")
+	webBase := "/renders"
+	reelsWebBase := "/reels"
+	manifestName := "property.full.json"
+	if *slug != "" {
+		rendersDir = filepath.Join(rendersDir, *slug)
+		reelsDir = filepath.Join(reelsDir, *slug)
+		webBase = "/renders/" + *slug
+		reelsWebBase = "/reels/" + *slug
+		manifestName = *slug + ".full.json"
+	}
+
+	opts := showcase.Options{
+		RendersDir:   rendersDir,
+		ReelsDir:     reelsDir,
+		ReelsWebBase: reelsWebBase,
+		WebBase:      webBase,
+		PromptDir:    *prompts,
+		Engine:       *engine,
+		Generate:     *generate,
+		OnlyStyle:    *onlyStyle,
+		OnlyRooms:    only,
+		Concurrency:  *conc,
+		BestOf:       *bestOf,
+		KeepK:        *keep,
+		GateVotes:    *gateVotes,
+		Logf:         log.Printf,
+	}
+
+	if *modelPath != "" {
+		if *photos == "" {
+			log.Fatal("--photos (source folder) is required with --model")
+		}
+		m, err := propertymodel.Load(*modelPath)
+		if err != nil {
+			log.Fatal(err)
+		}
+		opts.ManifestPath = filepath.Join(*app, "data", manifestName)
+		if err := showcase.RunFromModel(context.Background(), m, *photos, opts); err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		sp, err := showcase.LoadSpec(*spec)
+		if err != nil {
+			log.Fatal(err)
+		}
+		opts.ManifestPath = filepath.Join(*app, "data", "property.json")
+		if err := showcase.Run(context.Background(), sp, opts); err != nil {
+			log.Fatal(err)
+		}
+	}
+	fmt.Println("next: (cd web/showcase && pnpm dev) then open http://localhost:3000")
 }
 
 // animate runs stage 5: gate-approved still → short reveal clip (image-to-video).

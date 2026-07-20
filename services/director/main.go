@@ -7,6 +7,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
@@ -18,10 +19,13 @@ import (
 
 	"github.com/andreas-lindfalk/latentframe/pkg/env"
 	"github.com/andreas-lindfalk/latentframe/pkg/imageedit"
+	"github.com/andreas-lindfalk/latentframe/pkg/propertymodel"
+	"github.com/andreas-lindfalk/latentframe/pkg/verify"
+	"github.com/andreas-lindfalk/latentframe/services/director/internal/classify"
+	"github.com/andreas-lindfalk/latentframe/services/director/internal/describe"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/judge"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/selectbest"
 	"github.com/andreas-lindfalk/latentframe/services/director/internal/understand"
-	"github.com/andreas-lindfalk/latentframe/services/director/internal/verify"
 )
 
 func main() {
@@ -29,13 +33,17 @@ func main() {
 	env.Load(".env")
 
 	if len(os.Args) < 2 {
-		log.Fatal("usage: director <understand|verify|judge|select|beststage> ...")
+		log.Fatal("usage: director <classify|understand|verify|judge|select|beststage> ...")
 	}
 	if os.Getenv("ANTHROPIC_API_KEY") == "" {
 		log.Fatal("ANTHROPIC_API_KEY is not set (put it in .env or export it)")
 	}
 
 	switch os.Args[1] {
+	case "classify":
+		classifyCmd(os.Args[2:])
+	case "describe":
+		describeCmd(os.Args[2:])
 	case "understand":
 		understandCmd(os.Args[2:])
 	case "verify":
@@ -47,8 +55,80 @@ func main() {
 	case "beststage":
 		beststageCmd(os.Args[2:])
 	default:
-		log.Fatalf("unknown command %q (use: understand | verify | judge | select | beststage)", os.Args[1])
+		log.Fatalf("unknown command %q (use: classify | describe | understand | verify | judge | select | beststage)", os.Args[1])
 	}
+}
+
+// classifyCmd runs the SCENE-CLASSIFY + CURATE stage: a folder of listing photos →
+// a curated property model + a proposed plan and cost estimate. Claude-vision only —
+// it spends nothing at fal/Veo, so a human can clear the plan before paid generation.
+//
+//	director classify --dir ~/Downloads/listing --name "Zeniamar V" --out model.json
+func classifyCmd(args []string) {
+	fs := flag.NewFlagSet("classify", flag.ExitOnError)
+	dir := fs.String("dir", "", "folder of listing photos (required)")
+	out := fs.String("out", "", "path to write the curated property model JSON (default: ./property-model.json)")
+	name := fs.String("name", "", "property name (optional)")
+	location := fs.String("location", "", "property location (optional)")
+	styles := fs.Int("styles", 3, "number of decoration styles (for the spend estimate)")
+	maxPhotos := fs.Int("max-photos", 40, "safety cap on photos classified per run")
+	_ = fs.Parse(args)
+	if *dir == "" {
+		fs.Usage()
+		log.Fatal("\n--dir is required")
+	}
+	outPath := *out
+	if outPath == "" {
+		outPath = "property-model.json"
+	}
+
+	m, err := classify.Classify(context.Background(), *dir, classify.Options{
+		Name: *name, Location: *location, MaxPhotos: *maxPhotos, Logf: log.Printf,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	b, err := json.MarshalIndent(m, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := os.WriteFile(outPath, append(b, '\n'), 0o644); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Print(classify.FormatPlan(m, *styles))
+	fmt.Printf("\n  model -> %s\n", outPath)
+	fmt.Println("  next (only after you clear the plan): wire the selected spaces into `render showcase` (paid).")
+}
+
+// describeCmd writes the per-room, per-style captions into the property model (the text
+// shown above each image on the page, which changes with the selected style).
+//
+//	director describe --model playbook/showcase/zeniamar-model.json
+func describeCmd(args []string) {
+	fs := flag.NewFlagSet("describe", flag.ExitOnError)
+	modelPath := fs.String("model", "", "property model JSON from `director classify` (required)")
+	_ = fs.Parse(args)
+	if *modelPath == "" {
+		fs.Usage()
+		log.Fatal("\n--model is required")
+	}
+	m, err := propertymodel.Load(*modelPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	styles := []describe.Style{
+		{ID: "mediterranean", Name: "Mediterranean", Flavor: "warm, sun-washed — lime-washed cream, terracotta and zellige, oak and rattan, linen and jute, olive and clay"},
+		{ID: "scandinavian", Name: "Scandinavian", Flavor: "light and calm — white and pale oak, pared-back, muted textiles, matte-black accents"},
+		{ID: "coastal", Name: "Coastal", Flavor: "fresh and classic — crisp white with soft blue and sand, rattan and linen, brushed brass, breezy"},
+	}
+	m2, err := describe.Describe(context.Background(), m, styles, log.Printf)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := propertymodel.Save(*modelPath, m2); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("✓ wrote captions into", *modelPath)
 }
 
 // beststageCmd runs the production reliability path — BEST-OF-N: generate N restages with

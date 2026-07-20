@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   Latent Frame — warm-charcoal editorial "gallery" system.
+   Photography is the light source; chrome is a warm near-neutral; the accent
+   ("brand") is style-aware and glides when the decoration style changes.
+   See design-system/latent-frame/pages/showcase.md for rationale.
+---------------------------------------------------------------------------- */
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-on-brand: var(--on-brand);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter-tight);
+  --font-mono: var(--font-geist-mono);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Registered so the accent can interpolate smoothly on style change. */
+@property --brand {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #bc6437;
+}
+@property --brand-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(188, 100, 55, 0.16);
+}
+
+:root {
+  /* Light — warm gallery */
+  --canvas: #eeeae2;
+  --surface: #f7f4ee;
+  --surface2: #ffffff;
+  --ink: #1b1710;
+  --muted: #6b6153;
+  --line: #ded6c8;
+  --shadow: 28 20 10;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #14110c;
+    --surface: #1c1811;
+    --surface2: #241f17;
+    --ink: #ece5d8;
+    --muted: #9c9182;
+    --line: #2e2820;
+    --shadow: 0 0 0;
+    color-scheme: dark;
+  }
+}
+
+/* Explicit toggle wins over the media query, in both directions. */
+:root[data-theme="light"] {
+  --canvas: #eeeae2;
+  --surface: #f7f4ee;
+  --surface2: #ffffff;
+  --ink: #1b1710;
+  --muted: #6b6153;
+  --line: #ded6c8;
+  --shadow: 28 20 10;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --canvas: #14110c;
+  --surface: #1c1811;
+  --surface2: #241f17;
+  --ink: #ece5d8;
+  --muted: #9c9182;
+  --line: #2e2820;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+/* Style-aware accent. Set on the app wrapper via [data-style]. */
+[data-style="mediterranean"] {
+  --brand: #bc6437;
+  --brand-soft: color-mix(in oklab, #bc6437 16%, transparent);
+  --on-brand: #fff8f2;
+}
+[data-style="scandinavian"] {
+  --brand: #6e7a5c;
+  --brand-soft: color-mix(in oklab, #6e7a5c 16%, transparent);
+  --on-brand: #f7f9f3;
+}
+[data-style="coastal"] {
+  --brand: #356381;
+  --brand-soft: color-mix(in oklab, #356381 16%, transparent);
+  --on-brand: #f2f8fc;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Faint warm vignette so the "gallery" ground has depth without texture noise. */
+  background-image: radial-gradient(120% 80% at 50% -10%, var(--brand-soft) 0%, transparent 55%);
+  background-attachment: fixed;
+  transition: --brand 0.6s var(--ease-out-expo), --brand-soft 0.6s var(--ease-out-expo);
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+/* Utility: a mono eyebrow/label. */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Keyboard focus — visible, on-brand. */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "version": 2,
+  "property": {
+    "name": "Villa (Idealista 111961984)",
+    "location": "Costa Blanca",
+    "type": "villa",
+    "sleeps_estimate": 8
+  },
+  "styles": [
+    {
+      "id": "mediterranean",
+      "name": "Mediterranean",
+      "tagline": "Warm · characterful · sun-washed",
+      "accent": "#BC6437"
+    },
+    {
+      "id": "scandinavian",
+      "name": "Scandinavian",
+      "tagline": "Light · calm · pared-back",
+      "accent": "#6E7A5C"
+    },
+    {
+      "id": "coastal",
+      "name": "Coastal",
+      "tagline": "Fresh · classic · airy",
+      "accent": "#356381"
+    }
+  ],
+  "spaces": [
+    {
+      "id": "front-courtyard",
+      "name": "Front courtyard \u0026 facade",
+      "category": "outdoor_private",
+      "showcase": "hero",
+      "potential": "Restyled with lounge seating and potted greenery it becomes a sun-drenched Mediterranean arrival and outdoor living zone.",
+      "before": "/renders/villa/front-courtyard_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_front-courtyard_v1.jpg?v=1784580629",
+        "mediterranean": "/renders/villa/mediterranean_front-courtyard_v1.jpg?v=1784580629",
+        "scandinavian": "/renders/villa/scandinavian_front-courtyard_v1.jpg?v=1784580629"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_front-courtyard_v1.jpg?v=1784580629",
+          "/renders/villa/coastal_front-courtyard_v2.jpg?v=1784580629"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_front-courtyard_v1.jpg?v=1784580629",
+          "/renders/villa/mediterranean_front-courtyard_v2.jpg?v=1784580629",
+          "/renders/villa/mediterranean_front-courtyard_v3.jpg?v=1784580629"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_front-courtyard_v1.jpg?v=1784580629",
+          "/renders/villa/scandinavian_front-courtyard_v2.jpg?v=1784580629",
+          "/renders/villa/scandinavian_front-courtyard_v3.jpg?v=1784580629"
+        ]
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "living",
+      "name": "Living room",
+      "category": "interior",
+      "showcase": "hero",
+      "potential": "Restyled with contemporary sofas and neutral textiles it reads as a large, light-filled family living space.",
+      "before": "/renders/villa/living_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_living_v1.jpg?v=1784580629",
+        "mediterranean": "/renders/villa/mediterranean_living_v1.jpg?v=1784580629",
+        "scandinavian": "/renders/villa/scandinavian_living_v1.jpg?v=1784580629"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_living_v1.jpg?v=1784580629",
+          "/renders/villa/coastal_living_v2.jpg?v=1784580629",
+          "/renders/villa/coastal_living_v3.jpg?v=1784580629"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_living_v1.jpg?v=1784580629",
+          "/renders/villa/mediterranean_living_v2.jpg?v=1784580629",
+          "/renders/villa/mediterranean_living_v3.jpg?v=1784580629"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_living_v1.jpg?v=1784580629",
+          "/renders/villa/scandinavian_living_v2.jpg?v=1784580629",
+          "/renders/villa/scandinavian_living_v3.jpg?v=1784580629"
+        ]
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "dining",
+      "name": "Dining area",
+      "category": "interior",
+      "showcase": "supporting",
+      "potential": "Lighter furniture and simpler window dressing would open up this cosy dining nook.",
+      "before": "/renders/villa/dining_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_dining_v1.jpg?v=1784582089",
+        "mediterranean": "/renders/villa/mediterranean_dining_v1.jpg?v=1784581955",
+        "scandinavian": "/renders/villa/scandinavian_dining_v1.jpg?v=1784582079"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_dining_v1.jpg?v=1784582089",
+          "/renders/villa/coastal_dining_v2.jpg?v=1784582089",
+          "/renders/villa/coastal_dining_v3.jpg?v=1784582089"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_dining_v1.jpg?v=1784581955",
+          "/renders/villa/mediterranean_dining_v2.jpg?v=1784581955",
+          "/renders/villa/mediterranean_dining_v3.jpg?v=1784581955"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_dining_v1.jpg?v=1784582079",
+          "/renders/villa/scandinavian_dining_v2.jpg?v=1784582079",
+          "/renders/villa/scandinavian_dining_v3.jpg?v=1784582079"
+        ]
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "category": "interior",
+      "showcase": "strong",
+      "potential": "Refaced cabinetry and updated fittings would modernise this generously sized kitchen.",
+      "before": "/renders/villa/kitchen_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_kitchen_v1.jpg?v=1784580629",
+        "mediterranean": "/renders/villa/mediterranean_kitchen_v1.jpg?v=1784580629",
+        "scandinavian": "/renders/villa/scandinavian_kitchen_v1.jpg?v=1784580629"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_kitchen_v1.jpg?v=1784580629",
+          "/renders/villa/coastal_kitchen_v2.jpg?v=1784580629",
+          "/renders/villa/coastal_kitchen_v3.jpg?v=1784580629"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_kitchen_v1.jpg?v=1784580629",
+          "/renders/villa/mediterranean_kitchen_v2.jpg?v=1784580629",
+          "/renders/villa/mediterranean_kitchen_v3.jpg?v=1784580629"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_kitchen_v1.jpg?v=1784580629",
+          "/renders/villa/scandinavian_kitchen_v2.jpg?v=1784580629",
+          "/renders/villa/scandinavian_kitchen_v3.jpg?v=1784580629"
+        ]
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bedroom-master",
+      "name": "Master bedroom",
+      "category": "interior",
+      "showcase": "strong",
+      "potential": "Restyled bedding and softer lighting turn this into a calm, hotel-like master suite.",
+      "before": "/renders/villa/bedroom-master_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_bedroom-master_v1.jpg?v=1784580629",
+        "mediterranean": "/renders/villa/mediterranean_bedroom-master_v1.jpg?v=1784580629",
+        "scandinavian": "/renders/villa/scandinavian_bedroom-master_v1.jpg?v=1784580629"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_bedroom-master_v1.jpg?v=1784580629",
+          "/renders/villa/coastal_bedroom-master_v2.jpg?v=1784580629",
+          "/renders/villa/coastal_bedroom-master_v3.jpg?v=1784580629"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_bedroom-master_v1.jpg?v=1784580629",
+          "/renders/villa/mediterranean_bedroom-master_v2.jpg?v=1784580629",
+          "/renders/villa/mediterranean_bedroom-master_v3.jpg?v=1784580629"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_bedroom-master_v1.jpg?v=1784580629",
+          "/renders/villa/scandinavian_bedroom-master_v2.jpg?v=1784580629",
+          "/renders/villa/scandinavian_bedroom-master_v3.jpg?v=1784580629"
+        ]
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bedroom-double",
+      "name": "Double bedroom",
+      "category": "interior",
+      "showcase": "supporting",
+      "potential": "Fresh linens and lighter styling brighten this comfortable second double.",
+      "before": "/renders/villa/bedroom-double_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_bedroom-double_v1.jpg?v=1784582043",
+        "mediterranean": "/renders/villa/mediterranean_bedroom-double_v1.jpg?v=1784582063",
+        "scandinavian": "/renders/villa/scandinavian_bedroom-double_v1.jpg?v=1784582005"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_bedroom-double_v1.jpg?v=1784582043",
+          "/renders/villa/coastal_bedroom-double_v2.jpg?v=1784582043",
+          "/renders/villa/coastal_bedroom-double_v3.jpg?v=1784582043"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_bedroom-double_v1.jpg?v=1784582063",
+          "/renders/villa/mediterranean_bedroom-double_v2.jpg?v=1784582063",
+          "/renders/villa/mediterranean_bedroom-double_v3.jpg?v=1784582063"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_bedroom-double_v1.jpg?v=1784582005",
+          "/renders/villa/scandinavian_bedroom-double_v2.jpg?v=1784582005",
+          "/renders/villa/scandinavian_bedroom-double_v3.jpg?v=1784582005"
+        ]
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bedroom-twin",
+      "name": "Twin bedroom",
+      "category": "interior",
+      "showcase": "supporting",
+      "potential": "Coordinated bedding and a rug make an easy guest or children's room.",
+      "before": "/renders/villa/bedroom-twin_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_bedroom-twin_v1.jpg?v=1784581976",
+        "mediterranean": "/renders/villa/mediterranean_bedroom-twin_v1.jpg?v=1784582070",
+        "scandinavian": "/renders/villa/scandinavian_bedroom-twin_v1.jpg?v=1784582032"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_bedroom-twin_v1.jpg?v=1784581976",
+          "/renders/villa/coastal_bedroom-twin_v2.jpg?v=1784581976",
+          "/renders/villa/coastal_bedroom-twin_v3.jpg?v=1784581976"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_bedroom-twin_v1.jpg?v=1784582070",
+          "/renders/villa/mediterranean_bedroom-twin_v2.jpg?v=1784582070",
+          "/renders/villa/mediterranean_bedroom-twin_v3.jpg?v=1784582070"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_bedroom-twin_v1.jpg?v=1784582032",
+          "/renders/villa/scandinavian_bedroom-twin_v2.jpg?v=1784582032",
+          "/renders/villa/scandinavian_bedroom-twin_v3.jpg?v=1784582032"
+        ]
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bathroom-blue",
+      "name": "Family bathroom",
+      "category": "interior",
+      "showcase": "supporting",
+      "potential": "Neutral retiling and a modern vanity would refresh this dated blue scheme.",
+      "before": "/renders/villa/bathroom-blue_before.png?v=1784583287",
+      "after": {
+        "coastal": "/renders/villa/coastal_bathroom-blue_v1.jpg?v=1784580629",
+        "mediterranean": "/renders/villa/mediterranean_bathroom-blue_v1.jpg?v=1784580629",
+        "scandinavian": "/renders/villa/scandinavian_bathroom-blue_v1.jpg?v=1784580629"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/villa/coastal_bathroom-blue_v1.jpg?v=1784580629",
+          "/renders/villa/coastal_bathroom-blue_v2.jpg?v=1784580629",
+          "/renders/villa/coastal_bathroom-blue_v3.jpg?v=1784580629"
+        ],
+        "mediterranean": [
+          "/renders/villa/mediterranean_bathroom-blue_v1.jpg?v=1784580629",
+          "/renders/villa/mediterranean_bathroom-blue_v2.jpg?v=1784580629",
+          "/renders/villa/mediterranean_bathroom-blue_v3.jpg?v=1784580629"
+        ],
+        "scandinavian": [
+          "/renders/villa/scandinavian_bathroom-blue_v1.jpg?v=1784580629",
+          "/renders/villa/scandinavian_bathroom-blue_v2.jpg?v=1784580629",
+          "/renders/villa/scandinavian_bathroom-blue_v3.jpg?v=1784580629"
+        ]
+      },
+      "generated": true,
+      "context": false
+    }
+  ]
+}
