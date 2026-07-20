@@ -1,0 +1,461 @@
+{
+ "property": {
+  "name": "Zeniamar V",
+  "location": "Costa Blanca · Alicante · Spain",
+  "type": "townhouse",
+  "sleeps_estimate": 8
+ },
+ "photo_index": {
+  "1": "o_1iauno8ne107044ajki1blr1t252j_w_1024x800.png",
+  "10": "o_1iauno8ne1f9p1ffc107611gq1ojk2q_w_1024x800.png",
+  "11": "o_1iauno8ne1ljq1qnl1faq1csvmdu2i_w_1024x800.png",
+  "12": "o_1iauno8ne1mge6or12nutu81oe62g_w_1024x800.png",
+  "13": "o_1iauno8ne1pfq46312rd1o9j1dbo2l_w_1024x800.png",
+  "14": "o_1iauno8ne1poo1q5nhq8r3ud0t2o_w_1024x800.png",
+  "15": "o_1iauno8ne1qf215ako2g1rv61urv2p_w_1024x800.png",
+  "16": "o_1iauno8ne1vmp1c2118ep1ddv1tgp2n_w_1024x800.png",
+  "17": "o_1iauno8ne2i01dor42s1vrt1io62t_w_1024x800.png",
+  "18": "o_1iauno8ne2sh1d221ilj6tq1a3v29_w_1024x800.png",
+  "19": "o_1iauno8ne3tq8il1ae21qbk32f28_w_1024x800.png",
+  "2": "o_1iauno8ne13lo184enrj12cl1nfb2m_w_1024x800.png",
+  "20": "o_1iauno8ne5k01pqh10c4jb11i822c_w_1024x800.png",
+  "21": "o_1iauno8ne8hpav81hrr1t0g1k1b34_w_1024x800.png",
+  "22": "o_1iauno8neca21sot1k8v78npu632_w_1024x800.png",
+  "23": "o_1iauno8neg1uuo11i31fglffu2s_w_1024x800.png",
+  "24": "o_1iauno8negs3159rh0ok041ir30_w_1024x800.png",
+  "25": "o_1iauno8nekn2tuetsshtb16ak2d_w_1024x800.png",
+  "26": "o_1iauno8nelbm1ugi1s664hml082a_w_1024x800.png",
+  "27": "o_1iauno8nelhah712pk1os16hq33_w_1024x800.png",
+  "28": "o_1iauno8nepm711hue6rqs3sh02h_w_1024x800.png",
+  "29": "o_1iauno8ner591tu711i2mh51u4h2k_w_1024x800.png",
+  "3": "o_1iauno8ne14711ken183tp7p19d135_w_1024x800.png",
+  "30": "o_1iauno8nerdh139316damvafrk2u_w_1024x800.png",
+  "31": "o_1iauno8netk066f1satf1810n92v_w_1024x800.png",
+  "4": "o_1iauno8ne14vo1ukt9eh1kkcheb31_w_1024x800.png",
+  "5": "o_1iauno8ne15gbui4r5tiopn312b_w_1024x800.png",
+  "6": "o_1iauno8ne1beoepk14kcqknn962e_w_1024x800.png",
+  "7": "o_1iauno8ne1c37fhq1a191ge5h4c2r_w_1024x800.png",
+  "8": "o_1iauno8ne1dcs128l85fq8k1ndt2f_w_1024x800.png",
+  "9": "o_1iauno8ne1dvj18gf1rhq1gv0a2j36_w_1024x800.png"
+ },
+ "spaces": [
+  {
+   "id": "living",
+   "name": "Living room",
+   "type": "living_room",
+   "category": "interior",
+   "photo_indexes": [
+    23,
+    16
+   ],
+   "hero_index": 23,
+   "current": "A bright living room with cream leather sofas, wood coffee table and TV unit under a ceiling fan, with coastal artwork on soft yellow walls.",
+   "potential": "A light, contemporary lounge restyled with fresh neutral tones and updated furnishings for an airy coastal feel.",
+   "showcase_value": "hero",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Best interior living space and the key indoor hero.",
+   "descriptions": {
+    "coastal": "Crisp white sofas with soft-blue and sand cushions sit beneath the ceiling fan, rattan and linen replacing the old leather for an airy feel. Brushed-brass lamps and framed coastal prints keep it fresh and classic.",
+    "mediterranean": "Lime-washed cream walls warm the lounge, with linen-draped sofas, an oak coffee table and clay ceramics glowing under the fan. Olive-toned textiles and rattan accents make the space sun-washed and inviting.",
+    "scandinavian": "Pale oak and soft white replace the cream leather for a light, uncluttered lounge, with muted grey textiles and matte-black fittings. Clean lines and calm neutrals let the bright room breathe."
+   }
+  },
+  {
+   "id": "kitchen",
+   "name": "Kitchen",
+   "type": "kitchen",
+   "category": "interior",
+   "photo_indexes": [
+    2,
+    13
+   ],
+   "hero_index": 2,
+   "current": "A galley kitchen with honey-pine cabinetry, speckled granite worktop, tiled fruit-border splashback and integrated oven and hob.",
+   "potential": "A crisp modernised galley with updated cabinet fronts and neutral surfaces for a clean, timeless kitchen.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Essential room; one clean angle tells the story.",
+   "descriptions": {
+    "coastal": "Fresh white cabinet fronts meet sand-pale worktops and a soft-blue tiled splashback, with brushed-brass handles and a rattan barstool. Crisp and breezy, ready for salt-air mornings.",
+    "mediterranean": "Warm cream cabinetry, clay-toned worktops and a zellige splashback bring sun to the galley, with oak open shelving and woven baskets. Olive and terracotta touches keep it timelessly Mediterranean.",
+    "scandinavian": "Handleless pale-oak fronts and clean white surfaces modernise the galley, with matte-black tapware and a simple tiled backsplash. Uncluttered, bright and quietly functional."
+   }
+  },
+  {
+   "id": "dining",
+   "name": "Dining area",
+   "type": "dining_room",
+   "category": "interior",
+   "photo_indexes": [
+    14
+   ],
+   "hero_index": 14,
+   "current": "An open-plan dining nook with wooden table and breakfast bar linking kitchen and lounge under a ceiling fan.",
+   "potential": "A warm eat-in dining zone restyled to flow seamlessly into a modern open-plan living space.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Shows the open-plan layout; supporting context.",
+   "descriptions": {
+    "coastal": "A pale timber table and rattan chairs sit beneath the fan, with soft-blue linen and a sand runner linking kitchen to lounge. Brushed-brass pendants add a breezy, classic note.",
+    "mediterranean": "An oak table on a jute rug anchors the eat-in nook, cream walls and clay tableware glowing under warm light. Rattan chairs and olive-toned linen flow the space into the open-plan living zone.",
+    "scandinavian": "A slim pale-oak table and pared-back chairs keep the dining nook light and open, with muted textiles and a matte-black pendant overhead. Calm neutrals let it merge seamlessly into the living space."
+   }
+  },
+  {
+   "id": "bedroom-main",
+   "name": "Main bedroom",
+   "type": "bedroom",
+   "category": "interior",
+   "photo_indexes": [
+    17,
+    31
+   ],
+   "hero_index": 17,
+   "current": "A calm double bedroom with pine headboard, matching bedside tables and a bright grilled window under soft yellow walls.",
+   "potential": "A serene master retreat restyled with light linens and fresh contemporary tones.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Best double bedroom for the pitch.",
+   "descriptions": {
+    "coastal": "Soft-blue and white linens dress the bed against sand-toned walls, with a rattan headboard and brushed-brass lamps flanking the grilled window. Fresh, restful and full of sea light.",
+    "mediterranean": "Lime-washed cream walls wrap the room, with an oak headboard, linen bedding in olive and clay, and woven bedside baskets. Warm and serene, made for slow sunlit mornings.",
+    "scandinavian": "Pale-oak bedframe and crisp white linen keep the master calm and bright, with muted grey throws and matte-black lamps. Uncluttered and softly lit through the window."
+   }
+  },
+  {
+   "id": "bedroom-double-2",
+   "name": "Second bedroom",
+   "type": "bedroom",
+   "category": "interior",
+   "photo_indexes": [
+    29,
+    27
+   ],
+   "hero_index": 29,
+   "current": "A double bedroom with fitted wardrobes, AC and artwork on white walls, feeling bright and uncluttered.",
+   "potential": "A comfortable guest double refreshed with warm neutral styling and quality bedding.",
+   "showcase_value": "supporting",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Second double adds bedroom count; supporting.",
+   "descriptions": {
+    "coastal": "White walls and fitted wardrobes stay crisp, dressed with soft-blue bedding, a rattan bench and brushed-brass reading lamps. Bright, breezy and welcoming for guests.",
+    "mediterranean": "Warm neutral linens and a jute rug soften the guest double, with clay-toned cushions and an oak bedside adding sun-washed comfort. Uncluttered and quietly Mediterranean.",
+    "scandinavian": "Pale oak and white linens keep the guest room light and pared-back, with muted textiles and matte-black frames on clean walls. Calm, bright and easy."
+   }
+  },
+  {
+   "id": "bedroom-bunk",
+   "name": "Bunk bedroom",
+   "type": "bedroom",
+   "category": "interior",
+   "photo_indexes": [
+    28,
+    8,
+    30
+   ],
+   "hero_index": 28,
+   "current": "A bright twin bunk room with two sets of light-wood bunks flanking a window, ideal for children.",
+   "potential": "A playful family bunk room styled for kids and holiday guests with sleeping for four.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Shows strong family/rental sleeping capacity.",
+   "descriptions": {
+    "coastal": "Light-wood bunks flank the window dressed in white and soft-blue, with a sand-striped rug and rattan storage baskets. Fresh, playful and full of holiday light.",
+    "mediterranean": "The twin bunks in pale wood are warmed with clay and olive bedding, a jute rug and woven baskets for four young guests. Sunny, cheerful and hardwearing.",
+    "scandinavian": "Clean pale-oak bunks pair with white bedding and muted accent cushions, matte-black hooks keeping it tidy. Bright, simple and calm for kids and guests."
+   }
+  },
+  {
+   "id": "bathroom-1",
+   "name": "Bathroom",
+   "type": "bathroom",
+   "category": "interior",
+   "photo_indexes": [
+    18
+   ],
+   "hero_index": 18,
+   "current": "A full bathroom in warm beige tile with bathtub, glass screen, vanity, WC and bidet.",
+   "potential": "A refreshed family bathroom with lighter tiling and modern fittings.",
+   "showcase_value": "supporting",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Represents the bath option; one is enough.",
+   "descriptions": {
+    "coastal": "Lighter sand-and-white tiling refreshes the bathroom, with a glass-screened tub, brushed-brass fittings and soft-blue linen towels. Crisp, airy and classic.",
+    "mediterranean": "Warm beige tile is lifted with a zellige-toned band, an oak vanity and clay accessories beside the bathtub. Sun-warmed and softly textured.",
+    "scandinavian": "Pale tiling, a clean white vanity and matte-black taps modernise the family bathroom around the tub. Bright, uncluttered and calm."
+   }
+  },
+  {
+   "id": "bathroom-2",
+   "name": "Shower room",
+   "type": "bathroom",
+   "category": "interior",
+   "photo_indexes": [
+    19
+   ],
+   "hero_index": 19,
+   "current": "A second bathroom with corner glass shower, wood vanity and beige tiling.",
+   "potential": "A clean modern shower room updated with contemporary fixtures.",
+   "showcase_value": "supporting",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Shows second bathroom / shower option.",
+   "descriptions": {
+    "coastal": "Crisp light tiling and a corner glass shower pair with a rattan-look vanity and brushed-brass fixtures. Fresh, breezy and easy to love.",
+    "mediterranean": "An oak vanity and warm-toned tiling frame the corner shower, with clay pottery and linen towels adding sun. Compact and softly Mediterranean.",
+    "scandinavian": "Pale tiling, a simple wood vanity and matte-black fittings keep the shower room clean and contemporary. Minimal and bright."
+   }
+  },
+  {
+   "id": "facade",
+   "name": "Facade",
+   "type": "facade",
+   "category": "outdoor_private",
+   "photo_indexes": [
+    25,
+    7,
+    21
+   ],
+   "hero_index": 25,
+   "current": "The sand-coloured facade with pergola-topped terraces, balustrades and its own gated frontage on a tidy street.",
+   "potential": "The flat estate-agent frontage reimagined as a Mediterranean oasis — sun loungers, abundant planting, olive trees and bougainvillea, keeping the building exactly.",
+   "showcase_value": "hero",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Establishes property scale and street presence.",
+   "descriptions": {
+    "coastal": "The sand-coloured frontage is freshened with white-railed balustrades, potted palms and blue-toned planters along the gated entry. Rattan loungers and breezy greenery give a crisp seaside welcome.",
+    "mediterranean": "The sand facade becomes an oasis of olive trees, bougainvillea and terracotta pots, sun loungers tucked beneath the pergola terraces. Lush planting and warm tones frame the gated frontage while keeping the building intact.",
+    "scandinavian": "Clean gravel, structured greenery and pale timber loungers give the frontage a calm, ordered welcome, matte-black planters sharpening the sand walls. Minimal and uncluttered against the tidy street."
+   }
+  },
+  {
+   "id": "covered-terrace",
+   "name": "Covered terrace",
+   "type": "terrace",
+   "category": "outdoor_private",
+   "photo_indexes": [
+    1,
+    24,
+    25
+   ],
+   "hero_index": 1,
+   "current": "A generous arched covered terrace with rattan sofa set, ceiling fan and ceramic tiled floor sitting beside a broad balustraded sun deck.",
+   "potential": "A shaded outdoor lounge-and-dining destination that becomes the social heart of the home for long Costa Blanca evenings.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": true,
+   "reason": "Hero private outdoor space — the property's biggest selling point; animate the arched terrace reveal.",
+   "descriptions": {
+    "coastal": "Crisp white rattan seating with soft-blue linen cushions gathers under the arch, brushed-brass lanterns catching the breeze off the sun deck. The ceramic floor stays cool underfoot for lazy, salt-air evenings.",
+    "mediterranean": "Under the whitewashed arch, a rattan sofa dressed in olive and clay linen sits on warm terracotta-toned tiles, the ceiling fan stirring the evening air. Jute underfoot and a low oak table make this the lingering heart of long Costa Blanca dinners.",
+    "scandinavian": "Pale oak and off-white cushions keep the arched terrace calm and uncluttered, with matte-black lantern accents against the cool tiled floor. A pared-back layout lets the light and the deck view do the talking."
+   }
+  },
+  {
+   "id": "entrance-porch",
+   "name": "Covered porch",
+   "type": "covered_terrace",
+   "category": "outdoor_private",
+   "photo_indexes": [
+    11
+   ],
+   "hero_index": 11,
+   "current": "The arched covered entrance porch — a shaded ground-floor lounge with a ceiling fan and an archway framing the view, dressed with a dated grey wicker set against bare two-tone plaster walls.",
+   "potential": "A warm, welcoming covered lounge that makes an indoor-outdoor first impression the moment you arrive.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "The arched covered porch (front door + framed view) is a strong daily-use indoor-outdoor space; show it as its own before/after (added at Andreas's request, photo 11).",
+   "descriptions": {
+    "mediterranean": "Under the arch, a rustic rattan sofa in clay and olive linen sits on a jute rug, clustered terracotta pots of olive and trailing greenery softening the plaster and lanterns warming the shade. The framed view and ceiling fan make it a cool retreat all summer.",
+    "scandinavian": "Pale timber and off-white linen keep the covered porch calm and bright, matte-black lantern accents against the warm floor. The arch and framed view lead, uncluttered.",
+    "coastal": "Breezy white-and-blue cushioned rattan gathers under the arch, brushed-brass lanterns and a jute rug grounding the space. Potted olive and lavender frame the view through the archway."
+   }
+  },
+  {
+   "id": "balcony-outer",
+   "name": "Balcony · sun terrace",
+   "type": "terrace",
+   "category": "outdoor_private",
+   "photo_indexes": [
+    15
+   ],
+   "hero_index": 15,
+   "current": "A large pergola-shaded upper balcony with striped beam-shadows over terracotta tiles and a rooftop view — but left near-empty with folding chairs and a storage cabinet.",
+   "potential": "A shaded outdoor lounge that turns the rooftop view into the home's best sundowner spot.",
+   "showcase_value": "hero",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Outer half of the 2nd-floor balcony — pergola + open rooftop view = strong finca-capable bones; show the potential the empty original misses.",
+   "descriptions": {
+    "mediterranean": "Under the pergola's striped shade, a rustic rattan lounge sits on a jute rug amid clustered terracotta pots of olive and lavender, the rooftop view framed by cascading greenery. Warm clay cushions and lanterns make it the evening gathering spot.",
+    "scandinavian": "Pale-oak loungers and off-white linen keep the terrace calm and open, letting the pergola shadows and rooftop horizon lead. A few sculptural planters punctuate the space without crowding the view.",
+    "coastal": "Breezy white-and-blue cushioned rattan gathers under the pergola, brushed-brass lanterns catching the light. Terracotta pots of olive and lavender warm the cool tiled floor."
+   }
+  },
+  {
+   "id": "balcony-inner",
+   "name": "Balcony · covered nook",
+   "type": "balcony",
+   "category": "outdoor_private",
+   "photo_indexes": [
+    26
+   ],
+   "hero_index": 26,
+   "current": "The covered inner half of the balcony by the apartment door — shaded and private, but currently used for storage (a spare cabinet, a grill and clutter).",
+   "potential": "A sheltered outdoor room off the living space — a shaded lounge or dining nook for all-day, all-weather use.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Inner half of the 2nd-floor balcony — a shaded covered nook by the door, wasted as storage in the original; huge indoor-outdoor potential.",
+   "descriptions": {
+    "mediterranean": "The shaded nook by the door becomes a snug outdoor room — a low rattan sofa in clay and olive linen, a rustic wood table and a jute rug, lanterns and trailing greenery softening the plaster walls. An all-day retreat out of the sun.",
+    "scandinavian": "A calm, uncluttered covered lounge in pale timber and off-white, matte-black lantern accents against the warm floor. The shade and the doorway flow make it an easy extension of the living space.",
+    "coastal": "A relaxed covered nook with white-and-blue cushioned seating, a rattan chair and a brass lantern, cool and shaded by the door. Potted olive and lavender bring the terrace greenery right to the threshold."
+   }
+  },
+  {
+   "id": "roof-solarium",
+   "name": "Rooftop solarium",
+   "type": "roof_solarium",
+   "category": "outdoor_private",
+   "photo_indexes": [
+    6,
+    9
+   ],
+   "hero_index": 6,
+   "current": "An open rooftop solarium with low walls and pergola beams offering open sky and rooftop panoramas over the neighbourhood.",
+   "potential": "A private sun terrace for loungers and sundowners taking in the wide Costa Blanca skyline.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Adds valuable extra private outdoor level with views.",
+   "descriptions": {
+    "coastal": "Open to the sky, this solarium pairs white cushioned loungers with soft-blue throws and sand-toned decking for sundowners above the neighbourhood. Brushed-brass drink tables and breezy linen finish the panorama.",
+    "mediterranean": "Low sun-washed walls and pergola beams frame terracotta-warm loungers, olive-filled pots and clay lanterns for evening wine under an open sky. A jute rug and rattan side tables ground the wide Costa Blanca view.",
+    "scandinavian": "A minimal solarium of pale-oak loungers and white cushions leaves the skyline uninterrupted, with matte-black planters as quiet punctuation. Calm, bright and stripped to essentials for sun and stillness."
+   }
+  },
+  {
+   "id": "communal-pool",
+   "name": "Communal pool",
+   "type": "pool",
+   "category": "shared",
+   "photo_indexes": [
+    3,
+    22,
+    5
+   ],
+   "hero_index": 3,
+   "current": "A curvaceous blue communal pool set among palms and lawns with the townhouse terraces rising behind.",
+   "potential": "A resort-style shared pool and garden offering easy summer swims steps from the door.",
+   "showcase_value": "supporting",
+   "restage_tier": "enhance-context",
+   "selected": true,
+   "animate": false,
+   "reason": "Strong lifestyle context — but shared, shown for context only."
+  },
+  {
+   "id": "communal-garden",
+   "name": "Communal gardens",
+   "type": "garden",
+   "category": "shared",
+   "photo_indexes": [
+    12,
+    4
+   ],
+   "hero_index": 12,
+   "current": "The community's landscaped lawns, palms and winding paths between the townhouse rows.",
+   "potential": "Green, well-kept shared grounds giving the community an open, holiday-resort atmosphere.",
+   "showcase_value": "supporting",
+   "restage_tier": "enhance-context",
+   "selected": false,
+   "animate": false,
+   "reason": "Supporting shared context; one angle is enough."
+  }
+ ],
+ "excluded": [
+  {
+   "photo_index": 5,
+   "reason": "duplicate of #3 — same communal pool, less flattering angle with splash pad"
+  },
+  {
+   "photo_index": 4,
+   "reason": "duplicate of #12 — communal garden, redundant"
+  },
+  {
+   "photo_index": 12,
+   "reason": "duplicate of #4 — communal garden lawn/path, redundant"
+  },
+  {
+   "photo_index": 13,
+   "reason": "duplicate of #2 — same galley kitchen, weaker angle"
+  },
+  {
+   "photo_index": 7,
+   "reason": "duplicate of #25 — facade/street view, redundant"
+  },
+  {
+   "photo_index": 21,
+   "reason": "duplicate of #25 — facade from street, redundant"
+  },
+  {
+   "photo_index": 11,
+   "reason": "duplicate of #1 — covered ground terrace, less complete angle"
+  },
+  {
+   "photo_index": 24,
+   "reason": "duplicate of #1 — covered terrace seating, redundant angle"
+  },
+  {
+   "photo_index": 10,
+   "reason": "redundant narrow side terrace strip, low showcase value"
+  },
+  {
+   "photo_index": 20,
+   "reason": "circulation — stair landing with glass block wall, no pitch value"
+  },
+  {
+   "photo_index": 26,
+   "reason": "duplicate of #15 — same upper pergola terrace, cluttered with BBQ"
+  },
+  {
+   "photo_index": 9,
+   "reason": "utility-heavy rooftop corner with AC units, weakest outdoor angle"
+  },
+  {
+   "photo_index": 16,
+   "reason": "duplicate of #23 — same living room, weaker composition"
+  },
+  {
+   "photo_index": 30,
+   "reason": "redundant fourth bunk-room angle, near-duplicate of #28"
+  },
+  {
+   "photo_index": 31,
+   "reason": "redundant fourth double bedroom, similar to #17"
+  }
+ ]
+}

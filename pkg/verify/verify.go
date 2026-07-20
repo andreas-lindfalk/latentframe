@@ -7,15 +7,21 @@
 package verify
 
 import (
+	"bytes"
 	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"image"
+	_ "image/gif"
+	"image/jpeg"
+	_ "image/png"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/anthropics/anthropic-sdk-go"
+	xdraw "golang.org/x/image/draw"
 
 	"github.com/andreas-lindfalk/latentframe/pkg/pipeline"
 )
@@ -40,7 +46,10 @@ SHELL), just refitted. It must never mislead a buyer about the property's struct
 light or layout. Think in terms of SHELL vs CONTENTS.
 
 SHELL — the building itself. This MUST be preserved. Set architecture_preserved = false if the AFTER:
-  • adds, removes, enlarges, shrinks or moves any window, exterior door or opening;
+  • adds, removes, enlarges, shrinks or moves any window, door (INTERIOR or exterior), doorway
+    or opening — the exact set, type and position of windows, doors and openings must match the
+    BEFORE; also fails if it adds a closed door leaf where the BEFORE has an open passage, or
+    opens a solid wall/passage where the BEFORE has none;
   • turns a solid wall into a window, a glass door or an outdoor view (or vice-versa);
   • moves/adds/removes a wall, or changes the room's shape, dimensions, proportions or ceiling;
   • removes or hides a functional area (e.g. makes a kitchen vanish into a blank wall);
@@ -124,20 +133,35 @@ type Gate struct {
 	client       anthropic.Client
 	systemPrompt string
 	archDesc     string
+	votes        int // independent judge passes per pair; a pair must pass ALL (fail-closed). <=1 = single pass.
 }
 
 // NewGate builds a STRICT gate (shell-vs-contents). The Anthropic client reads
 // ANTHROPIC_API_KEY from the environment. This is the default used by the pipeline,
 // the golden harness and best-of-N.
 func NewGate() Gate {
-	return Gate{client: anthropic.NewClient(), systemPrompt: systemPrompt, archDesc: strictArchDesc}
+	return Gate{client: anthropic.NewClient(), systemPrompt: systemPrompt, archDesc: strictArchDesc, votes: 1}
 }
 
 // NewInspireGate builds a gate on the relaxed "potential / inspire" bar — full creative
 // freedom on style and decorative architecture; fails only material misrepresentations of
 // size, natural light, view or structure.
 func NewInspireGate() Gate {
-	return Gate{client: anthropic.NewClient(), systemPrompt: inspireSystemPrompt, archDesc: inspireArchDesc}
+	return Gate{client: anthropic.NewClient(), systemPrompt: inspireSystemPrompt, archDesc: inspireArchDesc, votes: 1}
+}
+
+// Voted returns a copy of the gate that runs n INDEPENDENT judge passes on each pair and
+// passes it ONLY if every pass agrees it is honest and believable (fail-closed on any
+// dissent). Because a single VLM pass is stochastic and occasionally MISSES a subtle added
+// window/door, requiring unanimous agreement across passes raises defect recall — use it for
+// structurally stubborn spaces (kitchens, bathrooms). It trades a few extra Claude calls and
+// some false rejections (harmless under best-of-N) for far fewer missed slips. n<=1 = single pass.
+func (g Gate) Voted(n int) Gate {
+	if n < 1 {
+		n = 1
+	}
+	g.votes = n
+	return g
 }
 
 var _ pipeline.Verifier = Gate{}
@@ -149,8 +173,30 @@ func (g Gate) Verify(ctx context.Context, room *pipeline.Room) (pipeline.Verdict
 }
 
 // VerifyPair judges a single before/after image pair. roomLabel is optional context
-// (e.g. "kitchen") and may be empty.
+// (e.g. "kitchen") and may be empty. If the gate was built with Voted(n>1), it runs up to
+// n independent passes and fails closed on the FIRST dissent (short-circuit) — a pair passes
+// only if every pass agrees. A pass error is returned immediately.
 func (g Gate) VerifyPair(ctx context.Context, beforePath, afterPath, roomLabel string) (pipeline.Verdict, error) {
+	votes := g.votes
+	if votes < 1 {
+		votes = 1
+	}
+	var last pipeline.Verdict
+	for i := 0; i < votes; i++ {
+		v, err := g.verifyOnce(ctx, beforePath, afterPath, roomLabel)
+		if err != nil {
+			return pipeline.Verdict{}, err
+		}
+		last = v
+		if !v.OK() {
+			return v, nil // any dissenting pass rejects the pair (fail-closed)
+		}
+	}
+	return last, nil // unanimous pass
+}
+
+// verifyOnce runs a SINGLE judge pass on one before/after pair.
+func (g Gate) verifyOnce(ctx context.Context, beforePath, afterPath, roomLabel string) (pipeline.Verdict, error) {
 	beforeType, beforeData, err := loadImage(beforePath)
 	if err != nil {
 		return pipeline.Verdict{}, fmt.Errorf("load before image: %w", err)
@@ -243,9 +289,22 @@ func (g Gate) VerifyPair(ctx context.Context, beforePath, afterPath, roomLabel s
 	return pipeline.Verdict{}, fmt.Errorf("model returned no verdict (stop reason: %s)", resp.StopReason)
 }
 
-// loadImage reads an image file and returns its media type + base64 data. It
-// detects the type from the bytes, not the filename — generators often return PNG
-// even when the output is named .jpg, and Anthropic rejects a mismatched media type.
+// maxEdge caps the long edge of an image sent to the vision model. Anthropic downscales
+// to ~1568px server-side anyway and rejects images over 10MB base64, so we pre-shrink large
+// photos here. Without this, real listing photos (e.g. 3072×1728, ~8MB PNG) tip over the
+// 10MB base64 limit and the gate's API call ERRORS — which best-of-N counts as "not passed",
+// producing a false 0/4 that looks like structural drift. (Zeniamar's 1024×800 photos never
+// hit this; the second property surfaced it.) 1568px keeps ample detail to judge structure.
+const maxEdge = 1568
+
+// rawFastPath is the raw-byte size under which we skip decode/resize — ~5.3MB base64,
+// safely under the 10MB limit.
+const rawFastPath = 4 << 20
+
+// loadImage reads an image file and returns its media type + base64 data, downscaling
+// oversized images so the gate never trips the 10MB limit. It detects the type from the
+// bytes, not the filename — generators often return PNG even when named .jpg, and Anthropic
+// rejects a mismatched media type.
 func loadImage(path string) (mediaType, encoded string, err error) {
 	raw, err := os.ReadFile(path)
 	if err != nil {
@@ -257,5 +316,31 @@ func loadImage(path string) (mediaType, encoded string, err error) {
 	default:
 		return "", "", fmt.Errorf("unsupported or undetected image type %q for %s", mediaType, path)
 	}
-	return mediaType, base64.StdEncoding.EncodeToString(raw), nil
+	// Small enough already → send as-is (fast path).
+	if len(raw) < rawFastPath {
+		return mediaType, base64.StdEncoding.EncodeToString(raw), nil
+	}
+	// Large file → decode, downscale the long edge to maxEdge, re-encode as JPEG.
+	img, _, derr := image.Decode(bytes.NewReader(raw))
+	if derr != nil {
+		// Undecodable (e.g. webp without a registered decoder) — fall back to raw.
+		return mediaType, base64.StdEncoding.EncodeToString(raw), nil
+	}
+	b := img.Bounds()
+	w, h := b.Dx(), b.Dy()
+	long := w
+	if h > w {
+		long = h
+	}
+	if long > maxEdge {
+		scale := float64(maxEdge) / float64(long)
+		dst := image.NewRGBA(image.Rect(0, 0, int(float64(w)*scale), int(float64(h)*scale)))
+		xdraw.CatmullRom.Scale(dst, dst.Bounds(), img, b, xdraw.Over, nil)
+		img = dst
+	}
+	var buf bytes.Buffer
+	if err := jpeg.Encode(&buf, img, &jpeg.Options{Quality: 90}); err != nil {
+		return "", "", fmt.Errorf("re-encode %s: %w", path, err)
+	}
+	return "image/jpeg", base64.StdEncoding.EncodeToString(buf.Bytes()), nil
 }

@@ -1,0 +1,556 @@
+{
+  "version": 2,
+  "property": {
+    "name": "Zeniamar V",
+    "location": "Costa Blanca · Alicante · Spain",
+    "type": "townhouse",
+    "sleeps_estimate": 8
+  },
+  "styles": [
+    {
+      "id": "mediterranean",
+      "name": "Mediterranean",
+      "tagline": "Warm · characterful · sun-washed",
+      "accent": "#BC6437"
+    },
+    {
+      "id": "scandinavian",
+      "name": "Scandinavian",
+      "tagline": "Light · calm · pared-back",
+      "accent": "#6E7A5C"
+    },
+    {
+      "id": "coastal",
+      "name": "Coastal",
+      "tagline": "Fresh · classic · airy",
+      "accent": "#356381"
+    }
+  ],
+  "spaces": [
+    {
+      "id": "living",
+      "name": "Living room",
+      "category": "interior",
+      "showcase": "hero",
+      "potential": "A light, contemporary lounge restyled with fresh neutral tones and updated furnishings for an airy coastal feel.",
+      "before": "/renders/zeniamar-v/living_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_living_v1.jpg?v=1784489821",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_living_v1.jpg?v=1784489768",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_living_v1.jpg?v=1784489726"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_living_v1.jpg?v=1784489821",
+          "/renders/zeniamar-v/coastal_living_v2.jpg?v=1784489821",
+          "/renders/zeniamar-v/coastal_living_v3.jpg?v=1784489821"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_living_v1.jpg?v=1784489768",
+          "/renders/zeniamar-v/mediterranean_living_v2.jpg?v=1784489768",
+          "/renders/zeniamar-v/mediterranean_living_v3.jpg?v=1784489768"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_living_v1.jpg?v=1784489726",
+          "/renders/zeniamar-v/scandinavian_living_v2.jpg?v=1784489726",
+          "/renders/zeniamar-v/scandinavian_living_v3.jpg?v=1784489726"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Crisp white sofas with soft-blue and sand cushions sit beneath the ceiling fan, rattan and linen replacing the old leather for an airy feel. Brushed-brass lamps and framed coastal prints keep it fresh and classic.",
+        "mediterranean": "Lime-washed cream walls warm the lounge, with linen-draped sofas, an oak coffee table and clay ceramics glowing under the fan. Olive-toned textiles and rattan accents make the space sun-washed and inviting.",
+        "scandinavian": "Pale oak and soft white replace the cream leather for a light, uncluttered lounge, with muted grey textiles and matte-black fittings. Clean lines and calm neutrals let the bright room breathe."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "category": "interior",
+      "showcase": "strong",
+      "potential": "A crisp modernised galley with updated cabinet fronts and neutral surfaces for a clean, timeless kitchen.",
+      "before": "/renders/zeniamar-v/kitchen_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_kitchen_v1.jpg?v=1784561654",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_kitchen_v1.jpg?v=1784561628",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_kitchen_v1.jpg?v=1784561498"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_kitchen_v1.jpg?v=1784561654",
+          "/renders/zeniamar-v/coastal_kitchen_v2.jpg?v=1784561654",
+          "/renders/zeniamar-v/coastal_kitchen_v3.jpg?v=1784561654"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_kitchen_v1.jpg?v=1784561628",
+          "/renders/zeniamar-v/mediterranean_kitchen_v2.jpg?v=1784561628",
+          "/renders/zeniamar-v/mediterranean_kitchen_v3.jpg?v=1784561628"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_kitchen_v1.jpg?v=1784561498",
+          "/renders/zeniamar-v/scandinavian_kitchen_v2.jpg?v=1784561498",
+          "/renders/zeniamar-v/scandinavian_kitchen_v3.jpg?v=1784561498"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Fresh white cabinet fronts meet sand-pale worktops and a soft-blue tiled splashback, with brushed-brass handles and a rattan barstool. Crisp and breezy, ready for salt-air mornings.",
+        "mediterranean": "Warm cream cabinetry, clay-toned worktops and a zellige splashback bring sun to the galley, with oak open shelving and woven baskets. Olive and terracotta touches keep it timelessly Mediterranean.",
+        "scandinavian": "Handleless pale-oak fronts and clean white surfaces modernise the galley, with matte-black tapware and a simple tiled backsplash. Uncluttered, bright and quietly functional."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "dining",
+      "name": "Dining area",
+      "category": "interior",
+      "showcase": "strong",
+      "potential": "A warm eat-in dining zone restyled to flow seamlessly into a modern open-plan living space.",
+      "before": "/renders/zeniamar-v/dining_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_dining_v1.jpg?v=1784553679",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_dining_v1.jpg?v=1784553687",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_dining_v1.jpg?v=1784553753"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_dining_v1.jpg?v=1784553679",
+          "/renders/zeniamar-v/coastal_dining_v2.jpg?v=1784553679",
+          "/renders/zeniamar-v/coastal_dining_v3.jpg?v=1784553679"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_dining_v1.jpg?v=1784553687",
+          "/renders/zeniamar-v/mediterranean_dining_v2.jpg?v=1784553687",
+          "/renders/zeniamar-v/mediterranean_dining_v3.jpg?v=1784553687"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_dining_v1.jpg?v=1784553753",
+          "/renders/zeniamar-v/scandinavian_dining_v2.jpg?v=1784553753",
+          "/renders/zeniamar-v/scandinavian_dining_v3.jpg?v=1784553753"
+        ]
+      },
+      "descriptions": {
+        "coastal": "A pale timber table and rattan chairs sit beneath the fan, with soft-blue linen and a sand runner linking kitchen to lounge. Brushed-brass pendants add a breezy, classic note.",
+        "mediterranean": "An oak table on a jute rug anchors the eat-in nook, cream walls and clay tableware glowing under warm light. Rattan chairs and olive-toned linen flow the space into the open-plan living zone.",
+        "scandinavian": "A slim pale-oak table and pared-back chairs keep the dining nook light and open, with muted textiles and a matte-black pendant overhead. Calm neutrals let it merge seamlessly into the living space."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bedroom-main",
+      "name": "Main bedroom",
+      "category": "interior",
+      "showcase": "strong",
+      "potential": "A serene master retreat restyled with light linens and fresh contemporary tones.",
+      "before": "/renders/zeniamar-v/bedroom-main_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_bedroom-main_v1.jpg?v=1784491298",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_bedroom-main_v1.jpg?v=1784491226",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_bedroom-main_v1.jpg?v=1784491353"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_bedroom-main_v1.jpg?v=1784491298",
+          "/renders/zeniamar-v/coastal_bedroom-main_v2.jpg?v=1784491298",
+          "/renders/zeniamar-v/coastal_bedroom-main_v3.jpg?v=1784491298"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_bedroom-main_v1.jpg?v=1784491226",
+          "/renders/zeniamar-v/mediterranean_bedroom-main_v2.jpg?v=1784491226",
+          "/renders/zeniamar-v/mediterranean_bedroom-main_v3.jpg?v=1784491226"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_bedroom-main_v1.jpg?v=1784491353",
+          "/renders/zeniamar-v/scandinavian_bedroom-main_v2.jpg?v=1784491354",
+          "/renders/zeniamar-v/scandinavian_bedroom-main_v3.jpg?v=1784491354"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Soft-blue and white linens dress the bed against sand-toned walls, with a rattan headboard and brushed-brass lamps flanking the grilled window. Fresh, restful and full of sea light.",
+        "mediterranean": "Lime-washed cream walls wrap the room, with an oak headboard, linen bedding in olive and clay, and woven bedside baskets. Warm and serene, made for slow sunlit mornings.",
+        "scandinavian": "Pale-oak bedframe and crisp white linen keep the master calm and bright, with muted grey throws and matte-black lamps. Uncluttered and softly lit through the window."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bedroom-double-2",
+      "name": "Second bedroom",
+      "category": "interior",
+      "showcase": "supporting",
+      "potential": "A comfortable guest double refreshed with warm neutral styling and quality bedding.",
+      "before": "/renders/zeniamar-v/bedroom-double-2_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_bedroom-double-2_v1.jpg?v=1784553697",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_bedroom-double-2_v1.jpg?v=1784553707",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_bedroom-double-2_v1.jpg?v=1784553745"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_bedroom-double-2_v1.jpg?v=1784553697",
+          "/renders/zeniamar-v/coastal_bedroom-double-2_v2.jpg?v=1784553697"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_bedroom-double-2_v1.jpg?v=1784553707",
+          "/renders/zeniamar-v/mediterranean_bedroom-double-2_v2.jpg?v=1784553707"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_bedroom-double-2_v1.jpg?v=1784553745",
+          "/renders/zeniamar-v/scandinavian_bedroom-double-2_v2.jpg?v=1784553745",
+          "/renders/zeniamar-v/scandinavian_bedroom-double-2_v3.jpg?v=1784553745"
+        ]
+      },
+      "descriptions": {
+        "coastal": "White walls and fitted wardrobes stay crisp, dressed with soft-blue bedding, a rattan bench and brushed-brass reading lamps. Bright, breezy and welcoming for guests.",
+        "mediterranean": "Warm neutral linens and a jute rug soften the guest double, with clay-toned cushions and an oak bedside adding sun-washed comfort. Uncluttered and quietly Mediterranean.",
+        "scandinavian": "Pale oak and white linens keep the guest room light and pared-back, with muted textiles and matte-black frames on clean walls. Calm, bright and easy."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bedroom-bunk",
+      "name": "Bunk bedroom",
+      "category": "interior",
+      "showcase": "strong",
+      "potential": "A playful family bunk room styled for kids and holiday guests with sleeping for four.",
+      "before": "/renders/zeniamar-v/bedroom-bunk_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_bedroom-bunk_v1.jpg?v=1784491289",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_bedroom-bunk_v1.jpg?v=1784491136",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_bedroom-bunk_v1.jpg?v=1784491260"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_bedroom-bunk_v1.jpg?v=1784491289",
+          "/renders/zeniamar-v/coastal_bedroom-bunk_v2.jpg?v=1784491289",
+          "/renders/zeniamar-v/coastal_bedroom-bunk_v3.jpg?v=1784491289"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_bedroom-bunk_v1.jpg?v=1784491136",
+          "/renders/zeniamar-v/mediterranean_bedroom-bunk_v2.jpg?v=1784491136",
+          "/renders/zeniamar-v/mediterranean_bedroom-bunk_v3.jpg?v=1784491136"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_bedroom-bunk_v1.jpg?v=1784491260",
+          "/renders/zeniamar-v/scandinavian_bedroom-bunk_v2.jpg?v=1784491260",
+          "/renders/zeniamar-v/scandinavian_bedroom-bunk_v3.jpg?v=1784491260"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Light-wood bunks flank the window dressed in white and soft-blue, with a sand-striped rug and rattan storage baskets. Fresh, playful and full of holiday light.",
+        "mediterranean": "The twin bunks in pale wood are warmed with clay and olive bedding, a jute rug and woven baskets for four young guests. Sunny, cheerful and hardwearing.",
+        "scandinavian": "Clean pale-oak bunks pair with white bedding and muted accent cushions, matte-black hooks keeping it tidy. Bright, simple and calm for kids and guests."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bathroom-1",
+      "name": "Bathroom",
+      "category": "interior",
+      "showcase": "supporting",
+      "potential": "A refreshed family bathroom with lighter tiling and modern fittings.",
+      "before": "/renders/zeniamar-v/bathroom-1_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_bathroom-1_v1.jpg?v=1784489714",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_bathroom-1_v1.jpg?v=1784489765",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_bathroom-1_v1.jpg?v=1784489758"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_bathroom-1_v1.jpg?v=1784489714",
+          "/renders/zeniamar-v/coastal_bathroom-1_v2.jpg?v=1784489714",
+          "/renders/zeniamar-v/coastal_bathroom-1_v3.jpg?v=1784489714"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_bathroom-1_v1.jpg?v=1784489765",
+          "/renders/zeniamar-v/mediterranean_bathroom-1_v2.jpg?v=1784489765",
+          "/renders/zeniamar-v/mediterranean_bathroom-1_v3.jpg?v=1784489765"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_bathroom-1_v1.jpg?v=1784489758",
+          "/renders/zeniamar-v/scandinavian_bathroom-1_v2.jpg?v=1784489758",
+          "/renders/zeniamar-v/scandinavian_bathroom-1_v3.jpg?v=1784489758"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Lighter sand-and-white tiling refreshes the bathroom, with a glass-screened tub, brushed-brass fittings and soft-blue linen towels. Crisp, airy and classic.",
+        "mediterranean": "Warm beige tile is lifted with a zellige-toned band, an oak vanity and clay accessories beside the bathtub. Sun-warmed and softly textured.",
+        "scandinavian": "Pale tiling, a clean white vanity and matte-black taps modernise the family bathroom around the tub. Bright, uncluttered and calm."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "bathroom-2",
+      "name": "Shower room",
+      "category": "interior",
+      "showcase": "supporting",
+      "potential": "A clean modern shower room updated with contemporary fixtures.",
+      "before": "/renders/zeniamar-v/bathroom-2_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_bathroom-2_v1.jpg?v=1784491397",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_bathroom-2_v1.jpg?v=1784491193",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_bathroom-2_v1.jpg?v=1784491329"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_bathroom-2_v1.jpg?v=1784491397",
+          "/renders/zeniamar-v/coastal_bathroom-2_v2.jpg?v=1784491397",
+          "/renders/zeniamar-v/coastal_bathroom-2_v3.jpg?v=1784491397"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_bathroom-2_v1.jpg?v=1784491193",
+          "/renders/zeniamar-v/mediterranean_bathroom-2_v2.jpg?v=1784491193",
+          "/renders/zeniamar-v/mediterranean_bathroom-2_v3.jpg?v=1784491193"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_bathroom-2_v1.jpg?v=1784491329",
+          "/renders/zeniamar-v/scandinavian_bathroom-2_v2.jpg?v=1784491329",
+          "/renders/zeniamar-v/scandinavian_bathroom-2_v3.jpg?v=1784491329"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Crisp light tiling and a corner glass shower pair with a rattan-look vanity and brushed-brass fixtures. Fresh, breezy and easy to love.",
+        "mediterranean": "An oak vanity and warm-toned tiling frame the corner shower, with clay pottery and linen towels adding sun. Compact and softly Mediterranean.",
+        "scandinavian": "Pale tiling, a simple wood vanity and matte-black fittings keep the shower room clean and contemporary. Minimal and bright."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "facade",
+      "name": "Facade",
+      "category": "outdoor_private",
+      "showcase": "hero",
+      "potential": "The flat estate-agent frontage reimagined as a Mediterranean oasis — sun loungers, abundant planting, olive trees and bougainvillea, keeping the building exactly.",
+      "before": "/renders/zeniamar-v/facade_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_facade_v1.jpg?v=1784563828",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_facade_v1.jpg?v=1784563817",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_facade_v1.jpg?v=1784563890"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_facade_v1.jpg?v=1784563828",
+          "/renders/zeniamar-v/coastal_facade_v2.jpg?v=1784563828",
+          "/renders/zeniamar-v/coastal_facade_v3.jpg?v=1784563828"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_facade_v1.jpg?v=1784563817",
+          "/renders/zeniamar-v/mediterranean_facade_v2.jpg?v=1784563817",
+          "/renders/zeniamar-v/mediterranean_facade_v3.jpg?v=1784563817"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_facade_v1.jpg?v=1784563890",
+          "/renders/zeniamar-v/scandinavian_facade_v2.jpg?v=1784563890",
+          "/renders/zeniamar-v/scandinavian_facade_v3.jpg?v=1784563890"
+        ]
+      },
+      "descriptions": {
+        "coastal": "The sand-coloured frontage is freshened with white-railed balustrades, potted palms and blue-toned planters along the gated entry. Rattan loungers and breezy greenery give a crisp seaside welcome.",
+        "mediterranean": "The sand facade becomes an oasis of olive trees, bougainvillea and terracotta pots, sun loungers tucked beneath the pergola terraces. Lush planting and warm tones frame the gated frontage while keeping the building intact.",
+        "scandinavian": "Clean gravel, structured greenery and pale timber loungers give the frontage a calm, ordered welcome, matte-black planters sharpening the sand walls. Minimal and uncluttered against the tidy street."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "covered-terrace",
+      "name": "Covered terrace",
+      "category": "outdoor_private",
+      "showcase": "strong",
+      "potential": "A shaded outdoor lounge-and-dining destination that becomes the social heart of the home for long Costa Blanca evenings.",
+      "before": "/renders/zeniamar-v/covered-terrace_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_covered-terrace_v1.jpg?v=1784561997",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_covered-terrace_v1.jpg?v=1784561978",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_covered-terrace_v1.jpg?v=1784562006"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_covered-terrace_v1.jpg?v=1784561997"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_covered-terrace_v1.jpg?v=1784561978"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_covered-terrace_v1.jpg?v=1784562006"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Crisp white rattan seating with soft-blue linen cushions gathers under the arch, brushed-brass lanterns catching the breeze off the sun deck. The ceramic floor stays cool underfoot for lazy, salt-air evenings.",
+        "mediterranean": "Under the whitewashed arch, a rattan sofa dressed in olive and clay linen sits on warm terracotta-toned tiles, the ceiling fan stirring the evening air. Jute underfoot and a low oak table make this the lingering heart of long Costa Blanca dinners.",
+        "scandinavian": "Pale oak and off-white cushions keep the arched terrace calm and uncluttered, with matte-black lantern accents against the cool tiled floor. A pared-back layout lets the light and the deck view do the talking."
+      },
+      "generated": true,
+      "context": false,
+      "videos": {
+        "coastal": "/reels/zeniamar-v/covered-terrace_coastal.mp4?v=1784562360",
+        "mediterranean": "/reels/zeniamar-v/covered-terrace_mediterranean.mp4?v=1784562231",
+        "scandinavian": "/reels/zeniamar-v/covered-terrace_scandinavian.mp4?v=1784562287"
+      }
+    },
+    {
+      "id": "entrance-porch",
+      "name": "Covered porch",
+      "category": "outdoor_private",
+      "showcase": "strong",
+      "potential": "A warm, welcoming covered lounge that makes an indoor-outdoor first impression the moment you arrive.",
+      "before": "/renders/zeniamar-v/entrance-porch_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_entrance-porch_v1.jpg?v=1784563847",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_entrance-porch_v1.jpg?v=1784563881",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_entrance-porch_v1.jpg?v=1784563816"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_entrance-porch_v1.jpg?v=1784563847",
+          "/renders/zeniamar-v/coastal_entrance-porch_v2.jpg?v=1784563847",
+          "/renders/zeniamar-v/coastal_entrance-porch_v3.jpg?v=1784563847"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_entrance-porch_v1.jpg?v=1784563881",
+          "/renders/zeniamar-v/mediterranean_entrance-porch_v2.jpg?v=1784563881",
+          "/renders/zeniamar-v/mediterranean_entrance-porch_v3.jpg?v=1784563881"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_entrance-porch_v1.jpg?v=1784563816",
+          "/renders/zeniamar-v/scandinavian_entrance-porch_v2.jpg?v=1784563816",
+          "/renders/zeniamar-v/scandinavian_entrance-porch_v3.jpg?v=1784563816"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Breezy white-and-blue cushioned rattan gathers under the arch, brushed-brass lanterns and a jute rug grounding the space. Potted olive and lavender frame the view through the archway.",
+        "mediterranean": "Under the arch, a rustic rattan sofa in clay and olive linen sits on a jute rug, clustered terracotta pots of olive and trailing greenery softening the plaster and lanterns warming the shade. The framed view and ceiling fan make it a cool retreat all summer.",
+        "scandinavian": "Pale timber and off-white linen keep the covered porch calm and bright, matte-black lantern accents against the warm floor. The arch and framed view lead, uncluttered."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "balcony-outer",
+      "name": "Balcony · sun terrace",
+      "category": "outdoor_private",
+      "showcase": "hero",
+      "potential": "A shaded outdoor lounge that turns the rooftop view into the home's best sundowner spot.",
+      "before": "/renders/zeniamar-v/balcony-outer_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_balcony-outer_v1.jpg?v=1784559977",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_balcony-outer_v1.jpg?v=1784559972",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_balcony-outer_v1.jpg?v=1784559997"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_balcony-outer_v1.jpg?v=1784559977",
+          "/renders/zeniamar-v/coastal_balcony-outer_v2.jpg?v=1784559977",
+          "/renders/zeniamar-v/coastal_balcony-outer_v3.jpg?v=1784559977"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_balcony-outer_v1.jpg?v=1784559972",
+          "/renders/zeniamar-v/mediterranean_balcony-outer_v2.jpg?v=1784559972",
+          "/renders/zeniamar-v/mediterranean_balcony-outer_v3.jpg?v=1784559972"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_balcony-outer_v1.jpg?v=1784559997",
+          "/renders/zeniamar-v/scandinavian_balcony-outer_v2.jpg?v=1784559997",
+          "/renders/zeniamar-v/scandinavian_balcony-outer_v3.jpg?v=1784559997"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Breezy white-and-blue cushioned rattan gathers under the pergola, brushed-brass lanterns catching the light. Terracotta pots of olive and lavender warm the cool tiled floor.",
+        "mediterranean": "Under the pergola's striped shade, a rustic rattan lounge sits on a jute rug amid clustered terracotta pots of olive and lavender, the rooftop view framed by cascading greenery. Warm clay cushions and lanterns make it the evening gathering spot.",
+        "scandinavian": "Pale-oak loungers and off-white linen keep the terrace calm and open, letting the pergola shadows and rooftop horizon lead. A few sculptural planters punctuate the space without crowding the view."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "balcony-inner",
+      "name": "Balcony · covered nook",
+      "category": "outdoor_private",
+      "showcase": "strong",
+      "potential": "A sheltered outdoor room off the living space — a shaded lounge or dining nook for all-day, all-weather use.",
+      "before": "/renders/zeniamar-v/balcony-inner_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_balcony-inner_v1.jpg?v=1784560726",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_balcony-inner_v1.jpg?v=1784560748",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_balcony-inner_v1.jpg?v=1784560727"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_balcony-inner_v1.jpg?v=1784560726",
+          "/renders/zeniamar-v/coastal_balcony-inner_v2.jpg?v=1784560726",
+          "/renders/zeniamar-v/coastal_balcony-inner_v3.jpg?v=1784560726"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_balcony-inner_v1.jpg?v=1784560748",
+          "/renders/zeniamar-v/mediterranean_balcony-inner_v2.jpg?v=1784560748",
+          "/renders/zeniamar-v/mediterranean_balcony-inner_v3.jpg?v=1784560748"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_balcony-inner_v1.jpg?v=1784560727",
+          "/renders/zeniamar-v/scandinavian_balcony-inner_v2.jpg?v=1784560727",
+          "/renders/zeniamar-v/scandinavian_balcony-inner_v3.jpg?v=1784560727"
+        ]
+      },
+      "descriptions": {
+        "coastal": "A relaxed covered nook with white-and-blue cushioned seating, a rattan chair and a brass lantern, cool and shaded by the door. Potted olive and lavender bring the terrace greenery right to the threshold.",
+        "mediterranean": "The shaded nook by the door becomes a snug outdoor room — a low rattan sofa in clay and olive linen, a rustic wood table and a jute rug, lanterns and trailing greenery softening the plaster walls. An all-day retreat out of the sun.",
+        "scandinavian": "A calm, uncluttered covered lounge in pale timber and off-white, matte-black lantern accents against the warm floor. The shade and the doorway flow make it an easy extension of the living space."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "roof-solarium",
+      "name": "Rooftop solarium",
+      "category": "outdoor_private",
+      "showcase": "strong",
+      "potential": "A private sun terrace for loungers and sundowners taking in the wide Costa Blanca skyline.",
+      "before": "/renders/zeniamar-v/roof-solarium_before.png?v=1784583131",
+      "after": {
+        "coastal": "/renders/zeniamar-v/coastal_roof-solarium_v1.jpg?v=1784553764",
+        "mediterranean": "/renders/zeniamar-v/mediterranean_roof-solarium_v1.jpg?v=1784553735",
+        "scandinavian": "/renders/zeniamar-v/scandinavian_roof-solarium_v1.jpg?v=1784553723"
+      },
+      "variants": {
+        "coastal": [
+          "/renders/zeniamar-v/coastal_roof-solarium_v1.jpg?v=1784553764",
+          "/renders/zeniamar-v/coastal_roof-solarium_v2.jpg?v=1784553764",
+          "/renders/zeniamar-v/coastal_roof-solarium_v3.jpg?v=1784553764"
+        ],
+        "mediterranean": [
+          "/renders/zeniamar-v/mediterranean_roof-solarium_v1.jpg?v=1784553735",
+          "/renders/zeniamar-v/mediterranean_roof-solarium_v2.jpg?v=1784553735",
+          "/renders/zeniamar-v/mediterranean_roof-solarium_v3.jpg?v=1784553735"
+        ],
+        "scandinavian": [
+          "/renders/zeniamar-v/scandinavian_roof-solarium_v1.jpg?v=1784553723",
+          "/renders/zeniamar-v/scandinavian_roof-solarium_v2.jpg?v=1784553723",
+          "/renders/zeniamar-v/scandinavian_roof-solarium_v3.jpg?v=1784553723"
+        ]
+      },
+      "descriptions": {
+        "coastal": "Open to the sky, this solarium pairs white cushioned loungers with soft-blue throws and sand-toned decking for sundowners above the neighbourhood. Brushed-brass drink tables and breezy linen finish the panorama.",
+        "mediterranean": "Low sun-washed walls and pergola beams frame terracotta-warm loungers, olive-filled pots and clay lanterns for evening wine under an open sky. A jute rug and rattan side tables ground the wide Costa Blanca view.",
+        "scandinavian": "A minimal solarium of pale-oak loungers and white cushions leaves the skyline uninterrupted, with matte-black planters as quiet punctuation. Calm, bright and stripped to essentials for sun and stillness."
+      },
+      "generated": true,
+      "context": false
+    },
+    {
+      "id": "communal-pool",
+      "name": "Communal pool",
+      "category": "shared",
+      "showcase": "supporting",
+      "potential": "A resort-style shared pool and garden offering easy summer swims steps from the door.",
+      "before": "/renders/zeniamar-v/communal-pool_before.png?v=1784583131",
+      "generated": false,
+      "context": true
+    }
+  ]
+}

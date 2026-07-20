@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "generatedBy": "render showcase",
+  "property": {
+    "name": "Zeniamar V",
+    "location": "Costa Blanca · Alicante · Spain",
+    "kicker": "The potential, honestly staged",
+    "lede": "The same four rooms, reimagined three complete ways — from the listing photos alone. Same walls, same windows, same light. Only the possibility is added."
+  },
+  "styles": [
+    {
+      "id": "mediterranean",
+      "name": "Mediterranean",
+      "tagline": "Warm · characterful · sun-washed",
+      "accent": "#BC6437"
+    },
+    {
+      "id": "scandinavian",
+      "name": "Scandinavian",
+      "tagline": "Light · calm · pared-back",
+      "accent": "#6E7A5C"
+    },
+    {
+      "id": "coastal",
+      "name": "Coastal",
+      "tagline": "Fresh · classic · airy",
+      "accent": "#356381"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "living",
+      "name": "Living room",
+      "index": "01",
+      "blurb": "The dated leather suite reimagined — linen, jute and warm wood, framed by the same windows and the same afternoon light.",
+      "before": "/renders/living_before.jpg",
+      "after": {
+        "coastal": "/renders/coastal_living.jpg",
+        "mediterranean": "/renders/mediterranean_living.jpg",
+        "scandinavian": "/renders/scandinavian_living.jpg"
+      },
+      "shop": {
+        "mediterranean": [
+          {
+            "name": "Cream linen slipcover 3-seat sofa",
+            "retailer": "Sklum",
+            "price": "€549",
+            "url": "https://www.sklum.com/en/search?q=linen%20slipcover%20sofa"
+          },
+          {
+            "name": "Round jute rug",
+            "retailer": "Sklum",
+            "price": "€99",
+            "url": "https://www.sklum.com/en/search?q=round%20jute%20rug"
+          },
+          {
+            "name": "Rattan pendant lamp",
+            "retailer": "Sklum",
+            "price": "€69",
+            "url": "https://www.sklum.com/en/search?q=rattan%20pendant%20lamp"
+          },
+          {
+            "name": "Olive tree in terracotta pot",
+            "retailer": "Leroy Merlin",
+            "price": "€79",
+            "url": "https://www.leroymerlin.es/search.html?q=olivo%20maceta"
+          }
+        ]
+      }
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "index": "02",
+      "blurb": "A tired galley becomes a refined cream-and-stone kitchen with a warm zellige backsplash — cabinetry in the same footprint.",
+      "before": "/renders/kitchen_before.jpg",
+      "after": {
+        "coastal": "/renders/coastal_kitchen.jpg",
+        "mediterranean": "/renders/mediterranean_kitchen.jpg",
+        "scandinavian": "/renders/scandinavian_kitchen.jpg"
+      },
+      "shop": {
+        "mediterranean": [
+          {
+            "name": "Zellige-style wall tile",
+            "retailer": "Leroy Merlin",
+            "price": "€24/m²",
+            "url": "https://www.leroymerlin.es/search.html?q=azulejo%20zellige"
+          },
+          {
+            "name": "Matte-black kitchen mixer tap",
+            "retailer": "Leroy Merlin",
+            "price": "€89",
+            "url": "https://www.leroymerlin.es/search.html?q=grifo%20cocina%20negro"
+          },
+          {
+            "name": "Open oak wall shelf",
+            "retailer": "Sklum",
+            "price": "€45",
+            "url": "https://www.sklum.com/en/search?q=oak%20wall%20shelf"
+          },
+          {
+            "name": "Stoneware ceramic tableware set",
+            "retailer": "Sklum",
+            "price": "€59",
+            "url": "https://www.sklum.com/en/search?q=stoneware%20ceramic%20set"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bath",
+      "name": "Bathroom",
+      "index": "03",
+      "blurb": "The blue-tiled bathroom as a warm stone spa — floating oak vanity, brass and a backlit mirror, plumbing kept where it is.",
+      "before": "/renders/bath_before.jpg",
+      "after": {
+        "coastal": "/renders/coastal_bath.jpg",
+        "mediterranean": "/renders/mediterranean_bath.jpg",
+        "scandinavian": "/renders/scandinavian_bath.jpg"
+      },
+      "shop": {
+        "mediterranean": [
+          {
+            "name": "Floating oak vanity unit",
+            "retailer": "Leroy Merlin",
+            "price": "€299",
+            "url": "https://www.leroymerlin.es/search.html?q=mueble%20ba%C3%B1o%20suspendido%20roble"
+          },
+          {
+            "name": "Stone / terrazzo countertop basin",
+            "retailer": "Sklum",
+            "price": "€119",
+            "url": "https://www.sklum.com/en/search?q=stone%20countertop%20basin"
+          },
+          {
+            "name": "Backlit round LED mirror",
+            "retailer": "Leroy Merlin",
+            "price": "€129",
+            "url": "https://www.leroymerlin.es/search.html?q=espejo%20redondo%20led"
+          },
+          {
+            "name": "Aged-brass shower set",
+            "retailer": "Leroy Merlin",
+            "price": "€159",
+            "url": "https://www.leroymerlin.es/search.html?q=conjunto%20ducha%20oro"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bedroom",
+      "name": "Bedroom",
+      "index": "04",
+      "blurb": "The pine bedroom set becomes a restful retreat — carved wood, washed linen and layered textiles, in the same quiet corner.",
+      "before": "/renders/bedroom_before.jpg",
+      "after": {
+        "coastal": "/renders/coastal_bedroom.jpg",
+        "mediterranean": "/renders/mediterranean_bedroom.jpg",
+        "scandinavian": "/renders/scandinavian_bedroom.jpg"
+      },
+      "shop": {
+        "mediterranean": [
+          {
+            "name": "Rattan / cane bed frame",
+            "retailer": "Sklum",
+            "price": "€399",
+            "url": "https://www.sklum.com/en/search?q=rattan%20bed"
+          },
+          {
+            "name": "Washed linen duvet set",
+            "retailer": "Sklum",
+            "price": "€89",
+            "url": "https://www.sklum.com/en/search?q=linen%20duvet%20set"
+          },
+          {
+            "name": "Cane sideboard / dresser",
+            "retailer": "Sklum",
+            "price": "€249",
+            "url": "https://www.sklum.com/en/search?q=cane%20sideboard"
+          },
+          {
+            "name": "Round rattan wall mirror",
+            "retailer": "Sklum",
+            "price": "€59",
+            "url": "https://www.sklum.com/en/search?q=round%20rattan%20mirror"
+          }
+        ]
+      }
+    }
+  ]
+}

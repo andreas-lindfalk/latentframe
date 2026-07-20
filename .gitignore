@@ -43,3 +43,8 @@ node_modules/
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# Generated property assets (large binaries, regenerable by the render pipeline).
+# Commit config + code + manifests; not the images/videos.
+/web/showcase/public/renders/
+/web/showcase/public/reels/

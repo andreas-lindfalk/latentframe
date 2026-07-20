@@ -1,0 +1,189 @@
+{
+ "property": {
+  "name": "Villa (Idealista 111961984)",
+  "location": "Costa Blanca",
+  "type": "villa",
+  "sleeps_estimate": 8
+ },
+ "photo_index": {
+  "1": "Skärmavbild 2026-07-14 kl. 17.56.26.png",
+  "10": "Skärmavbild 2026-07-14 kl. 17.58.27.png",
+  "11": "Skärmavbild 2026-07-14 kl. 17.58.40.png",
+  "12": "Skärmavbild 2026-07-14 kl. 17.58.49.png",
+  "13": "Skärmavbild 2026-07-14 kl. 17.58.58.png",
+  "14": "Skärmavbild 2026-07-14 kl. 17.59.11.png",
+  "15": "Skärmavbild 2026-07-14 kl. 17.59.22.png",
+  "16": "Skärmavbild 2026-07-14 kl. 17.59.33.png",
+  "2": "Skärmavbild 2026-07-14 kl. 17.57.00.png",
+  "3": "Skärmavbild 2026-07-14 kl. 17.57.13.png",
+  "4": "Skärmavbild 2026-07-14 kl. 17.57.21.png",
+  "5": "Skärmavbild 2026-07-14 kl. 17.57.33.png",
+  "6": "Skärmavbild 2026-07-14 kl. 17.57.44.png",
+  "7": "Skärmavbild 2026-07-14 kl. 17.57.53.png",
+  "8": "Skärmavbild 2026-07-14 kl. 17.58.05.png",
+  "9": "Skärmavbild 2026-07-14 kl. 17.58.19.png"
+ },
+ "spaces": [
+  {
+   "id": "front-courtyard",
+   "name": "Front courtyard & facade",
+   "type": "facade",
+   "category": "outdoor_private",
+   "photo_indexes": [
+    1,
+    2
+   ],
+   "hero_index": 2,
+   "current": "A bright tiled front courtyard with palm trees, cacti and pebble planters wraps the peach-toned villa's staircase and upper balcony.",
+   "potential": "Restyled with lounge seating and potted greenery it becomes a sun-drenched Mediterranean arrival and outdoor living zone.",
+   "showcase_value": "hero",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": true,
+   "reason": "Best full view of the villa and its private courtyard; #2 is the stronger, more complete composition."
+  },
+  {
+   "id": "living",
+   "name": "Living room",
+   "type": "living_room",
+   "category": "interior",
+   "photo_indexes": [
+    6,
+    7,
+    8
+   ],
+   "hero_index": 7,
+   "current": "A spacious open-plan lounge with dated fabric sofas, a stone fireplace, patterned rug and tiled floors flows toward the kitchen.",
+   "potential": "Restyled with contemporary sofas and neutral textiles it reads as a large, light-filled family living space.",
+   "showcase_value": "hero",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": true,
+   "reason": "Three angles of one large living space; #7 shows scale and flow best."
+  },
+  {
+   "id": "dining",
+   "name": "Dining area",
+   "type": "dining_room",
+   "category": "interior",
+   "photo_indexes": [
+    3
+   ],
+   "hero_index": 3,
+   "current": "A dark-wood dresser wall and curtained window frame a small round dining table in the corner of the living area.",
+   "potential": "Lighter furniture and simpler window dressing would open up this cosy dining nook.",
+   "showcase_value": "supporting",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Distinct dining space worth showing as a supporting shot."
+  },
+  {
+   "id": "kitchen",
+   "name": "Kitchen",
+   "type": "kitchen",
+   "category": "interior",
+   "photo_indexes": [
+    4,
+    5
+   ],
+   "hero_index": 5,
+   "current": "A large oak-fronted kitchen with granite counters, tiled splashback and appliances lining an open galley layout.",
+   "potential": "Refaced cabinetry and updated fittings would modernise this generously sized kitchen.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Two angles of one kitchen; #5 shows the fuller open layout."
+  },
+  {
+   "id": "bedroom-master",
+   "name": "Master bedroom",
+   "type": "bedroom",
+   "category": "interior",
+   "photo_indexes": [
+    10,
+    11
+   ],
+   "hero_index": 11,
+   "current": "A bright master bedroom with pine bed, fitted mirrored wardrobes and matching nightstands.",
+   "potential": "Restyled bedding and softer lighting turn this into a calm, hotel-like master suite.",
+   "showcase_value": "strong",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Best double bedroom with wardrobes; #11 is the warmer, more inviting angle."
+  },
+  {
+   "id": "bedroom-double",
+   "name": "Double bedroom",
+   "type": "bedroom",
+   "category": "interior",
+   "photo_indexes": [
+    12,
+    13
+   ],
+   "hero_index": 13,
+   "current": "A double bedroom with pine furniture, dresser and a large curtained window with air conditioning.",
+   "potential": "Fresh linens and lighter styling brighten this comfortable second double.",
+   "showcase_value": "supporting",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Second distinct double; #13 is brighter with more storage shown. #12 is redundant."
+  },
+  {
+   "id": "bedroom-twin",
+   "name": "Twin bedroom",
+   "type": "bedroom",
+   "category": "interior",
+   "photo_indexes": [
+    16
+   ],
+   "hero_index": 16,
+   "current": "A twin bedroom with two single beds, monochrome bedspreads and a curtained window.",
+   "potential": "Coordinated bedding and a rug make an easy guest or children's room.",
+   "showcase_value": "supporting",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Adds bed count and shows the villa's guest capacity."
+  },
+  {
+   "id": "bathroom-blue",
+   "name": "Family bathroom",
+   "type": "bathroom",
+   "category": "interior",
+   "photo_indexes": [
+    14,
+    15
+   ],
+   "hero_index": 14,
+   "current": "A blue-tiled family bathroom with bathtub, bidet, toilet and vanity beneath a bright window.",
+   "potential": "Neutral retiling and a modern vanity would refresh this dated blue scheme.",
+   "showcase_value": "supporting",
+   "restage_tier": "restyle",
+   "selected": true,
+   "animate": false,
+   "reason": "Best full bathroom; #14 shows the complete room with tub."
+  },
+  {
+   "id": "bathroom-shower",
+   "name": "Shower room",
+   "type": "bathroom",
+   "category": "interior",
+   "photo_indexes": [
+    9
+   ],
+   "hero_index": 9,
+   "current": "A compact mosaic-tiled shower room with pedestal basin, corner shower enclosure and toilet.",
+   "potential": "Updated tiling and glass would modernise this secondary shower room.",
+   "showcase_value": "supporting",
+   "restage_tier": "skip",
+   "selected": false,
+   "animate": false,
+   "reason": "Skipped — dated, cluttered and redundant to the stronger family bathroom."
+  }
+ ],
+ "excluded": []
+}
